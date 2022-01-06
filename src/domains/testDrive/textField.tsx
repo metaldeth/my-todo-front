@@ -1,6 +1,7 @@
 import { FC, useState } from "react";
 import { Card } from "../../components/card";
 import { TextField } from "../../components/input"
+import { InputTypeConst } from "../../components/input/const";
 
 export const TestDriveTextField:FC<{}> = () => {
   const [ state, setState ] = useState<string>('');

@@ -1,10 +1,10 @@
 import { FC } from "react";
-import './styles.scss';
+import css from './styles.module.scss';
 
-export const Aside: FC<{}> = (props) => {
+export const Aside: FC<{}> = ({ children }) => {
   return(
-    <aside className='aside'>
-      {props.children}
+    <aside className={css.aside}>
+      {children}
     </aside>
   )
 }

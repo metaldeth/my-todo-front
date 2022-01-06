@@ -35,11 +35,14 @@
   }
 }
 
-
 .textField_label {
   display: block;
   margin-bottom: 2px;
   font-size: 15px;
   color: rgba(0, 0, 0, 0.6);
   font-family: inherit;
+}
+
+.textField_input:focus ~ .textField_label {
+  color: red
 }

@@ -21,10 +21,6 @@ export const TestDriveCounter: FC<{}> = () => {
     setCount(0);
   };
 
-  const onChange = (value: string) => {
-    setValue(Number(value))
-  };
-
   return(
     <Card>
       <Aside>
@@ -53,9 +49,9 @@ export const TestDriveCounter: FC<{}> = () => {
         isDisabled={false}
         label={'value'}
         placeholder={'value'}
-        type='number'
+        type={'number'}
         value={value}
-        onChange={onChange}
+        onChange={setValue}
       />
       <div>
         count: {count}

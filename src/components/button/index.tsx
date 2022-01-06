@@ -2,22 +2,15 @@ import { FC } from "react"
 import './styles.scss'
 
 export type ButtonPropsType = {
-  onClick: () => void;
+  onClick: VoidFunction;
   label: string;
 }
 
-export const Button: FC<ButtonPropsType> = (props) => {
-  const {
-    label,
-    onClick
-  } = props;
-
-  return(
-    <div 
-      className='button_container'
-      onClick={onClick}
-    >
-      {label}
-    </div>
-  )
-}
+export const Button: FC<ButtonPropsType> = ({ label, onClick }) => (
+  <div 
+    className='button_container'
+    onClick={onClick}
+  >
+    {label}
+  </div>
+)
