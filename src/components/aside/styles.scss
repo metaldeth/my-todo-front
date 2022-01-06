@@ -1,0 +1,26 @@
+.aside {
+  position: absolute;
+  left: 0px;
+  top: 50px;
+  height: 100%;
+  width: 175px;
+  padding: 0 25px;
+  border-right: 1px solid gray;
+}
+
+.asideButton_container {
+  width: 100px;
+  padding: 5px 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  transition: background-color 0.25s box-shadow 0.25s;
+  &:hover{
+    background-color: rgba(0, 0, 0, 0.062);
+    box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.062);
+  }
+}
+
+.asideButton_link {
+  color: black;
+  text-decoration: none;
+}
