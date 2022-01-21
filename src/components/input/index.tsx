@@ -14,6 +14,7 @@ type MapOfInputOnChange = {
 }
 
 export type TextFieldProps<T extends InputTypeConst> = {
+  name?: string;
   value: MapOfValue[T];
   type: T;
   label: string;
@@ -22,11 +23,13 @@ export type TextFieldProps<T extends InputTypeConst> = {
   classNameWrap?: string;
   classNameLabel?: string;
   classNameInput?: string;
-  onChange: MapOfInputOnChange[T]
+  onChange?: MapOfInputOnChange[T];
+  onNativeChange?: React.ChangeEventHandler<HTMLInputElement>
 }
 
 export const TextField = <T extends InputTypeConst>(props: TextFieldProps<T>) => {
   const {
+    name,
     value,
     isDisabled,
     label,
@@ -35,18 +38,20 @@ export const TextField = <T extends InputTypeConst>(props: TextFieldProps<T>) =>
     classNameWrap,
     classNameLabel,
     classNameInput,
-    onChange
+    onChange,
+    onNativeChange
   } = props;
 
-  const handler = useMemo((): ChangeEventHandler<HTMLInputElement> => {
-    const untypedOnChange: Function = onChange;
-    if (type === 'text') return (e) => untypedOnChange(e.target.value);
-    return (e) => {
-      const valueAsNumber = Number(e.target.value);
-      if (Number.isNaN(valueAsNumber)) return;
-      untypedOnChange(valueAsNumber)
-    }
-  }, [type, onChange])
+  // const handler = useMemo((): ChangeEventHandler<HTMLInputElement> => {
+  //   const untypedOnChange: Function = onChange;
+  //   if (type === 'text') return (e) => untypedOnChange(e.target.value);
+  //   return (e) => {
+  //     const valueAsNumber = Number(e.target.value);
+  //     if (Number.isNaN(valueAsNumber)) return;
+  //     untypedOnChange(valueAsNumber)
+  //   }
+  // }, [type, onChange])
+
 
   return(
     <div className={classNames('textField', classNameWrap)}>
@@ -54,11 +59,12 @@ export const TextField = <T extends InputTypeConst>(props: TextFieldProps<T>) =>
         className={classNames('textField_label', classNameLabel)}
       >{label}</label>
       <input
+        name={name}
         value={String(value)}
         className={classNames('textField_input', classNameInput)}
         placeholder={placeholder}
         disabled={isDisabled}
-        onChange={handler}
+        onChange={onNativeChange}
       />
     </div>
   )

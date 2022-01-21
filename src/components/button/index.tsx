@@ -7,10 +7,10 @@ export type ButtonPropsType = {
 }
 
 export const Button: FC<ButtonPropsType> = ({ label, onClick }) => (
-  <div 
+  <button 
     className='button_container'
     onClick={onClick}
   >
     {label}
-  </div>
+  </button>
 )

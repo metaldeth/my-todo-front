@@ -4,10 +4,11 @@ import { TestDriveCounter } from "./counter"
 import { TestDriveTextField } from "./textField"
 import { AppBarButton } from "../../components/appBar/button"
 import { ContentContainer } from "../../components/contentContainer"
+import { Route } from "react-router"
 
 export const TestDrive: FC<{}> = () => {
   return(
-    <>
+    <Route path='/test'>
       <AppBar>
         <AppBarButton
           link='/test'
@@ -34,6 +35,6 @@ export const TestDrive: FC<{}> = () => {
         <TestDriveTextField/>
         <TestDriveCounter/>
       </ContentContainer>
-    </>
+    </Route>
   )
 }
