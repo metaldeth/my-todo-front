@@ -1,4 +1,3 @@
-
 import { MainUserDataDTO, SignInUserDTO, SignUpUserDTO, TokenPairDTO } from '../../../../types/serverInterface/user/userDTO';
 import {AbstractApiModule} from '../../abstractApiModule';
 

@@ -1,18 +1,35 @@
-import classNames from 'classnames';
+import { useEffect, useState } from 'react';
 import { Route, Routes } from 'react-router';
-import './app.scss'
+import { Link } from 'react-router-dom';
+import css from './app.module.scss';
+import { useAppDispatch } from './app/hooks';
+import { Loader } from './components/loader';
 import { PrivateRouteGuard } from './domains/auth/components/AuthRoute';
 import { AuthModule } from './domains/auth/parts';
-import { SignIn } from './domains/auth/parts/signIn';
-import { SignUp } from './domains/auth/parts/signUp';
+import { fetchUserData } from './domains/auth/state';
+import { TaskList } from './domains/task/path';
 import { TestDrive } from './domains/testDrive';
 
 function App() {
+  const dispatch = useAppDispatch();
+
+  const [ isLoaded, setIsLoaded ] = useState(false);
+
+  useEffect(() => {
+    dispatch(fetchUserData())
+      .then(() => setIsLoaded(true));
+  }, [dispatch]);
+
+  if(!isLoaded) return <Loader/>;
+
   return (
-    <div className={classNames('appContainer')}>
+    <div className={css.appContainer}>
       <Routes>
         <Route element={<PrivateRouteGuard needAuth={false}/>}>
           <Route path='/auth/*' element={<AuthModule/>}/>
+        </Route>
+        <Route element={<PrivateRouteGuard needAuth={true}/>}>
+          <Route path='/taskList/*' element={<TaskList/>}/>
         </Route>
         <Route element={<PrivateRouteGuard needAuth={true}/>}>
           <Route path='/test' element={<TestDrive/>}/>

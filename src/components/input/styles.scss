@@ -1,3 +1,5 @@
+@import '/src/theme.scss'; 
+
 .textField {
   margin: 5px;
 }
@@ -22,7 +24,7 @@
     color: #212529;
     background-color: #fff;
     border-color: #bdbdbd;
-    border-bottom: 2px solid #007FFF;
+    border-bottom: 2px solid $primaryColor;
     outline: 0;
   }
   &:disabled{

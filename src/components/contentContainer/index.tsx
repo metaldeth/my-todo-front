@@ -1,9 +1,9 @@
 import { FC } from "react";
-import './styles.scss';
+import css from './styles.module.scss';
 
 export const ContentContainer: FC<{}> = (props) => {
   return(
-    <div className='contentContainer'>
+    <div className={css.contentContainer}>
       {props.children}
     </div>
   )

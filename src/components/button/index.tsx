@@ -1,5 +1,5 @@
 import { FC } from "react"
-import './styles.scss'
+import css from './styles.module.scss';
 
 export type ButtonPropsType = {
   onClick: VoidFunction;
@@ -8,7 +8,7 @@ export type ButtonPropsType = {
 
 export const Button: FC<ButtonPropsType> = ({ label, onClick }) => (
   <button 
-    className='button_container'
+    className={css.button_container}
     onClick={onClick}
   >
     {label}
