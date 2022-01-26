@@ -14,7 +14,7 @@ export class TaskListModule extends AbstractApiModule{
     return this.request.put<EditTaskListDTO, TaskListDTO>(`/taskList/${taskListId}`, data);
   }
 
-  remove(TaskListId: number): Promise<void> {
-    return this.request.delete(`/taskList/${TaskListId}`);
+  remove(taskListId: number): Promise<void> {
+    return this.request.delete(`/taskList/${taskListId}`);
   }
 }

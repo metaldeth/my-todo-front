@@ -1,5 +1,9 @@
 import { AxiosCoreApi } from './axiosCore';
-import { AuthModule, TaskListModule } from './modules';
+import { 
+  AuthModule, 
+  TaskListModule,
+  TaskModule, 
+} from './modules';
 
 
 export class Api {
@@ -7,12 +11,14 @@ export class Api {
 
   public readonly auth: AuthModule;
   public readonly taskList: TaskListModule;
+  public readonly task: TaskModule;
 
   constructor() {
     this.request = new AxiosCoreApi;
 
     this.auth = new AuthModule(this.request);
     this.taskList = new TaskListModule(this.request);
+    this.task = new TaskModule(this.request);
   }
 
   clearTokens(): void {

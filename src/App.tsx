@@ -29,7 +29,7 @@ function App() {
         <Route element={<PrivateRouteGuard needAuth={false}/>}>
           <Route path='/auth/*' element={<AuthModule/>}/>
         </Route>
-        <Route element={<PrivateRouteGuard needAuth={true}/>}>
+        <Route element={<PrivateRouteGuard needAuth={false}/>}>
           <Route path='/taskList/*' element={<TaskList/>}/>
         </Route>
         <Route element={<PrivateRouteGuard needAuth={true}/>}>
