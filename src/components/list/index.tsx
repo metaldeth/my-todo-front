@@ -1,9 +1,9 @@
 import { FC } from "react";
 import css from './styles.module.scss';
 
-export const Card: FC<{}> = (props) => {
+export const List: FC<{}> = (props) => {
   return(
-    <div className={css.card} >
+    <div className={css.listContainer}>
       {props.children}
     </div>
   )

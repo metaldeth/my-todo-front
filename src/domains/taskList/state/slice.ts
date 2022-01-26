@@ -22,6 +22,11 @@ export const taskListSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(fetchListOfTaskList.fulfilled, (state, action) => {
+      state.map = {};
+      state.list = [];
+      state.listByTaskId = {};
+      state.listByUserId = {};
+      
       const list = action.payload;
       list.forEach(taskList => {
         state.map[taskList.id] = {

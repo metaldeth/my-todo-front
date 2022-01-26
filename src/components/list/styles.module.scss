@@ -1,0 +1,15 @@
+.listContainer {
+  width: 80%;
+  margin: 0 auto;
+}
+
+.listItem {
+  display: flex;
+  align-content: center;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  width: 100%;
+  padding: 3px 10px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.233);
+}

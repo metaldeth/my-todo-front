@@ -10,6 +10,7 @@ export const Button: FC<ButtonPropsType> = ({ label, onClick }) => (
   <button 
     className={css.button_container}
     onClick={onClick}
+    
   >
     {label}
   </button>

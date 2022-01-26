@@ -1,10 +1,10 @@
 import { FC } from "react";
 import css from './styles.module.scss';
 
-export const Card: FC<{}> = (props) => {
+export const ListItem: FC<{}> = (props) => {
   return(
-    <div className={css.card} >
+    <div className={css.listItem}>
       {props.children}
     </div>
   )
-}
+} 

@@ -3,11 +3,12 @@ import { Route, Routes } from 'react-router';
 import { Link } from 'react-router-dom';
 import css from './app.module.scss';
 import { useAppDispatch } from './app/hooks';
+import { ButtonLink } from './components/button/buttonLink';
 import { Loader } from './components/loader';
 import { PrivateRouteGuard } from './domains/auth/components/AuthRoute';
 import { AuthModule } from './domains/auth/parts';
 import { fetchUserData } from './domains/auth/state';
-import { TaskList } from './domains/task/path';
+import { TaskList } from './domains/taskList/path';
 import { TestDrive } from './domains/testDrive';
 
 function App() {
@@ -34,7 +35,7 @@ function App() {
         <Route element={<PrivateRouteGuard needAuth={true}/>}>
           <Route path='/test' element={<TestDrive/>}/>
         </Route>
-        <Route path='/*' element={<>404</>}/>
+        <Route path='/*' element={<ButtonLink label='taskList' url='/taskList' />}/>
       </Routes>
     </div>
   );
