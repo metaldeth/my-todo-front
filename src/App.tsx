@@ -29,12 +29,14 @@ function App() {
         <Route element={<PrivateRouteGuard needAuth={false}/>}>
           <Route path='/auth/*' element={<AuthModule/>}/>
         </Route>
+        {/* todo */}
         <Route element={<PrivateRouteGuard needAuth={false}/>}>
           <Route path='/taskList/*' element={<TaskList/>}/>
         </Route>
         <Route element={<PrivateRouteGuard needAuth={true}/>}>
           <Route path='/test' element={<TestDrive/>}/>
         </Route>
+        <Route path='/taskList/*' element={<TaskList/>}/>
         <Route path='/*' element={<ButtonLink label='taskList' url='/taskList' />}/>
       </Routes>
     </div>
