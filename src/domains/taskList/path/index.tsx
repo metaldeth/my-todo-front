@@ -11,6 +11,9 @@ import { EditTaskList } from "./editTaskList";
 import { RemoveTaskList } from "./removeTaskList";
 import { TaskListCard } from "./taskListCard";
 import { fetchListOfTaskList } from "../state";
+import { CreateTask } from "../../task/path/createTask";
+import { NavigationTaskList } from "./navigationByTaskList";
+import { NavigationByTask } from "../../task/path/navigationByTask";
 
 export const TaskList: FC<{}> = () => {
   const dispatch = useAppDispatch();
@@ -26,22 +29,22 @@ export const TaskList: FC<{}> = () => {
 
   return(
     <>
-      <AppBar>
-        <AppBarButton
-          link="/taskList/list"
-          children='home'
-        />
-        <AppBarButton
-          link="/taskList/create"
-          children='create'
-        />
-      </AppBar>
+      
+      <Routes>
+        <Route path=':taskListId/card/*' element={
+          <NavigationByTask/>
+        }/>
+        <Route path='*' element={
+          <NavigationTaskList/>
+        }/>
+      </Routes>
       <ContentContainer>
         <Routes>
           <Route path='list' element={<ListOfTaskList/>}/>
           <Route path='create' element={<CreateTaskList/>}/>
           <Route path=':taskListId/edit' element={<EditTaskList/>}/>
           <Route path=':taskListId/remove' element={<RemoveTaskList/>}/>
+          <Route path=':taskListId/card/task/create' element={<CreateTask/>}/>
           <Route path=':taskListId/card' element={<TaskListCard/>}/>
         </Routes>
       </ContentContainer>

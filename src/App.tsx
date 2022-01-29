@@ -8,6 +8,7 @@ import { Loader } from './components/loader';
 import { PrivateRouteGuard } from './domains/auth/components/AuthRoute';
 import { AuthModule } from './domains/auth/parts';
 import { fetchUserData } from './domains/auth/state';
+import { Task } from './domains/task/path';
 import { TaskList } from './domains/taskList/path';
 import { TestDrive } from './domains/testDrive';
 
@@ -29,14 +30,15 @@ function App() {
         <Route element={<PrivateRouteGuard needAuth={false}/>}>
           <Route path='/auth/*' element={<AuthModule/>}/>
         </Route>
-        {/* todo */}
-        {/* <Route element={<PrivateRouteGuard needAuth={false}/>}>
+        <Route element={<PrivateRouteGuard needAuth={true}/>}>
+          <Route path='/taskList/:taskListId/task/:taskId/*' element={<Task/>}/>
+        </Route>
+        <Route element={<PrivateRouteGuard needAuth={true}/>}>
           <Route path='/taskList/*' element={<TaskList/>}/>
-        </Route> */}
+        </Route>
         <Route element={<PrivateRouteGuard needAuth={true}/>}>
           <Route path='/test' element={<TestDrive/>}/>
         </Route>
-        <Route path='/taskList/*' element={<TaskList/>}/>
         <Route path='/*' element={<ButtonLink label='taskList' url='/taskList' />}/>
       </Routes>
     </div>

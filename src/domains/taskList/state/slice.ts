@@ -24,8 +24,6 @@ export const taskListSlice = createSlice({
     builder.addCase(fetchListOfTaskList.fulfilled, (state, action) => {
       state.map = {};
       state.list = [];
-      state.listByTaskId = {};
-      state.listByUserId = {};
       
       const list = action.payload;
       list.forEach(taskList => {
@@ -34,11 +32,6 @@ export const taskListSlice = createSlice({
           caption: taskList.caption,
         };
         state.list.push(taskList.id);
-
-        taskList.listOfMember.forEach(member => {
-          state.listByUserId[member.id] = state.listByUserId[member.id] || [];
-          state.listByUserId[member.id].push(taskList.id);
-        });
       })
     })
 
@@ -47,10 +40,6 @@ export const taskListSlice = createSlice({
     
       state.map[taskList.id] = {id: taskList.id, caption: taskList.caption};
       state.list.push(taskList.id);
-      taskList.listOfMember.forEach(member => {
-        state.listByUserId[member.id] = state.listByUserId[member.id] || [];
-        state.listByUserId[member.id].push(taskList.id);
-      });
     })
 
     builder.addCase(editTaskList.fulfilled, (state, action) => {

@@ -15,6 +15,6 @@ export class TaskModule extends AbstractApiModule{
   }
 
   remove(taskId: number): Promise<void> {
-    return this.request.delete(`/taskList/${taskId}`);
+    return this.request.delete(`/task/${taskId}`);
   }
 }

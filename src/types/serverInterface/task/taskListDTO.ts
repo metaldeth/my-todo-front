@@ -1,7 +1,6 @@
 export type TaskListDTO = {
   id: number;
   caption: string;
-  listOfMember: Array<{id: number, name: string, isOwner: boolean}>;
 }
 
 export type TaskListType = {

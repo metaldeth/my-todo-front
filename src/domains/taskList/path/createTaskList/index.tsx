@@ -9,12 +9,19 @@ import { Card } from '../../../../components/card';
 import { TextField } from '../../../../components/input';
 import { Button } from '../../../../components/button';
 import { createTaskList } from '../../state';
+import { AppBar } from '../../../../components/appBar';
+import { AppBarButton } from '../../../../components/appBar/button';
+import { useParams } from 'react-router';
+import { RouteTaskListParam } from '../../types';
 
 const initialValues: CreateTaskListDTO = {
   caption: '',
 }
 
 export const CreateTaskList: FC<{}> = () => {
+  const { taskListId } = useParams<RouteTaskListParam>();
+  const convertedId = Number(taskListId);
+
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
@@ -31,26 +38,28 @@ export const CreateTaskList: FC<{}> = () => {
   })
 
   return (
-    <ContentContainer>
-      <Card>
-        <form onSubmit={formik.handleSubmit}>
-          <TextField
-            isDisabled={false}
-            label='название'
-            name='caption'
-            type='text'
-            placeholder='caption'
-            onNativeChange={formik.handleChange}
-            value={formik.values.caption}
-          />
-          <div className='button'>
-            <Button
-              onClick={() => formik.isSubmitting}
-              label='create'
+    <>
+      <ContentContainer>
+        <Card>
+          <form onSubmit={formik.handleSubmit}>
+            <TextField
+              isDisabled={false}
+              label='название'
+              name='caption'
+              type='text'
+              placeholder='caption'
+              onNativeChange={formik.handleChange}
+              value={formik.values.caption}
             />
-          </div>
-        </form>
-      </Card>
-    </ContentContainer>
+            <div className='button'>
+              <Button
+                onClick={() => formik.isSubmitting}
+                label='create'
+              />
+            </div>
+          </form>
+        </Card>
+      </ContentContainer>
+    </>
   )
 }
