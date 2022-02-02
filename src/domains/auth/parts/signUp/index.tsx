@@ -6,7 +6,7 @@ import { useAppDispatch } from "../../../../app/hooks";
 import { ContentContainer } from "../../../../components/contentContainer";
 import { Card } from "../../../../components/card";
 import { Button } from "../../../../components/button";
-import { TextField } from "../../../../components/input";
+import { TextField } from "../../../../components/textField";
 import { SignUpUserDTO } from "../../../../types/serverInterface";
 import { signUp } from "../../state";
 

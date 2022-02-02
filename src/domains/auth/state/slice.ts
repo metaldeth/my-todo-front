@@ -6,18 +6,15 @@ import { fetchUserData, signIn } from "./thunk";
 export interface AuthState {
   user: MainUserDataDTO | null,
   isAuth: boolean,
-  isInitReqExecute: boolean,
 }
 
 const initialState: AuthState = {
   user: null,
   isAuth: false,
-  isInitReqExecute: false,
 }
 
 const getUserMainDataReducer = (state: AuthState, action: PayloadAction<MainUserDataDTO>) => {
   state.user = action.payload;
-  state.isInitReqExecute = true;
   state.isAuth = true;
 }
 
@@ -34,9 +31,7 @@ export const authSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(fetchUserData.fulfilled, getUserMainDataReducer);
     builder.addCase(signIn.fulfilled, getUserMainDataReducer);
-    builder.addCase(fetchUserData.rejected, (state, action) => {
-      state.isInitReqExecute = true;
-    });
+
   }
 })
 

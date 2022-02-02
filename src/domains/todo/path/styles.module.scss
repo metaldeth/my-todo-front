@@ -1,0 +1,15 @@
+@import '/src/theme.scss'; 
+
+.assideBar {
+  padding-left: 30px;
+  width: 240px;
+  height: 100%;
+  position: fixed;
+  &:hover {
+    overflow-y: scroll;
+}
+}
+
+.contentBox {
+  margin-left: 300px;
+}

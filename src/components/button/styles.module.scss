@@ -8,20 +8,33 @@
   cursor: pointer;
   padding: 10px 20px;
   margin: 5px;
-  background-color: $primaryColor;
+  border: 0;
   border-radius: 5px;
   color: white;
-  transition: background-color 0.25s ease-in-out, box-shadow 0.25s ease-in-out;
-  &:hover {
-    background-color: $primaryDarkColor;
-    box-shadow: 0px 2px 5px 2px rgb(160, 160, 160);
-  }
+
   -webkit-touch-callout: none; /* iOS Safari */
   -webkit-user-select: none;   /* Chrome/Safari/Opera */
   -khtml-user-select: none;    /* Konqueror */
   -moz-user-select: none;      /* Firefox */
   -ms-user-select: none;       /* Internet Explorer/Edge */
   user-select: none;  
+}
+
+.button_primary {
+  background-color: $primaryColor;
+  transition: background-color 0.25s ease-in-out;
+  &:hover {
+    background-color: $primaryHoverColor;
+  }
+}
+
+.button_secondary {
+  background-color: $secondaryColor;
+  color: black;
+  transition: background-color 0.25s ease-in-out;
+  &:hover {
+    background-color: $secondaryHoverColor;
+  }
 }
 
 .buttonGroup_container {

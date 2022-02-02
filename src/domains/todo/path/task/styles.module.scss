@@ -1,0 +1,69 @@
+@import '/src/theme.scss'; 
+
+.taskContainer {
+  padding: 0 55px;
+  max-width: 800px;
+  margin: 30px auto;
+}
+
+.taskContainer_header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.taskContainer_label {
+  font-size: larger;
+  font-weight: 700;
+}
+
+.taskContainer_buttonGroup {
+  display: flex;
+}
+
+.createTask {
+  display: flex;
+}
+
+.createTask_button {
+  cursor: pointer;
+  margin-top: 5px;
+  color: $iconColor;
+  transition: color 0.2s ease-in-out;
+  &:hover {
+    color: $primaryColor;
+  }
+}
+
+.createTask_textFieldBox {
+  padding-bottom: 10px;
+  margin: 5px 0;
+  border: 1px solid $borderColor;
+  border-radius: 5px;
+}
+
+.taskItem {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+  width: 100%;
+  border-bottom: 1px solid $borderColor;
+}
+
+.taskItem_content {
+  display: flex;
+}
+
+.taskItem_caption {
+  color: $captionColor;
+  font-size: 14px;
+}
+
+.taskItem_description {
+  color: $descriptionColor;
+  font-size: 12px;
+}
+
+.taskItem_checkBox {
+  // color: $borderColor;
+  border-color: red;
+}

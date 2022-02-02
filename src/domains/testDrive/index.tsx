@@ -5,6 +5,7 @@ import { TestDriveTextField } from "./textField"
 import { AppBarButton } from "../../components/appBar/button"
 import { ContentContainer } from "../../components/contentContainer"
 import { Route } from "react-router"
+import { TestDriveIcons } from "./testDriveIcons"
 
 export const TestDrive: FC<{}> = () => {
   return(
@@ -34,6 +35,7 @@ export const TestDrive: FC<{}> = () => {
       <ContentContainer>
         <TestDriveTextField/>
         <TestDriveCounter/>
+        <TestDriveIcons/>
       </ContentContainer>
     </Route>
   )

@@ -1,16 +1,12 @@
 import { useEffect, useState } from 'react';
 import { Route, Routes } from 'react-router';
-import { Link } from 'react-router-dom';
 import css from './app.module.scss';
 import { useAppDispatch } from './app/hooks';
-import { ButtonLink } from './components/button/buttonLink';
 import { Loader } from './components/loader';
 import { PrivateRouteGuard } from './domains/auth/components/AuthRoute';
 import { AuthModule } from './domains/auth/parts';
 import { fetchUserData } from './domains/auth/state';
-import { Task } from './domains/task/path';
-import { TaskList } from './domains/taskList/path';
-import { TestDrive } from './domains/testDrive';
+import { ToDo } from './domains/todo/path';
 
 function App() {
   const dispatch = useAppDispatch();
@@ -26,21 +22,16 @@ function App() {
 
   return (
     <div className={css.appContainer}>
-      <Routes>
-        <Route element={<PrivateRouteGuard needAuth={false}/>}>
-          <Route path='/auth/*' element={<AuthModule/>}/>
-        </Route>
-        <Route element={<PrivateRouteGuard needAuth={true}/>}>
-          <Route path='/taskList/:taskListId/task/:taskId/*' element={<Task/>}/>
-        </Route>
-        <Route element={<PrivateRouteGuard needAuth={true}/>}>
-          <Route path='/taskList/*' element={<TaskList/>}/>
-        </Route>
-        <Route element={<PrivateRouteGuard needAuth={true}/>}>
-          <Route path='/test' element={<TestDrive/>}/>
-        </Route>
-        <Route path='/*' element={<ButtonLink label='taskList' url='/taskList' />}/>
-      </Routes>
+      <div className={css.appContainer}>
+        <Routes>
+          <Route element={<PrivateRouteGuard needAuth={false}/>}>
+            <Route path='/auth/*' element={<AuthModule/>}/>
+          </Route>
+          <Route element={<PrivateRouteGuard needAuth={true}/>}>
+            <Route path='/*' element={<ToDo/>}/>
+          </Route>
+        </Routes>
+      </div>
     </div>
   );
 }
