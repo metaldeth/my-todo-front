@@ -11,13 +11,15 @@ export type ItemOfTaskListPropsType = {
   setSelectedTaskListId: React.Dispatch<React.SetStateAction<number | null>>;
   selectedTaskListId: number | null;
   setIsLoadedTask: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsAsideSettingTaskList: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const ItemOfTaskList: FC<ItemOfTaskListPropsType> = memo(({ 
   taskList, 
   setSelectedTaskListId, 
   selectedTaskListId,
-  setIsLoadedTask
+  setIsLoadedTask,
+  setIsAsideSettingTaskList
 }) => {
 
   const handleChange = () => {
@@ -43,7 +45,7 @@ export const ItemOfTaskList: FC<ItemOfTaskListPropsType> = memo(({
       </div>
       <div>
         <IconButton
-          onClick={() => {}}
+          onClick={() => setIsAsideSettingTaskList(true)}
         >
           <AiOutlineEllipsis/>
         </IconButton>

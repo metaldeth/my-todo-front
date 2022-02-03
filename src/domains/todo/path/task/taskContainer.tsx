@@ -20,10 +20,25 @@ export type TaskContainerPropsType = {
   selectedTaskListId: number;
   setIsLoadedTask: React.Dispatch<React.SetStateAction<boolean>>;
   isLoadedTask: boolean;
+  setIsOpenEditTaskList: React.Dispatch<React.SetStateAction<boolean>>;
+  isOpedEditTaskList: boolean;
+  setSelectedOpenSettingTaskId: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsOpenSettingTaskId: React.Dispatch<React.SetStateAction<number | null>>;
+  setSelectedEditTaskId: React.Dispatch<React.SetStateAction<number | null>>;
+  selectedEditTaskId: number | null;
 }
 
-export const TaskContainer: FC<TaskContainerPropsType> = memo(({ selectedTaskListId, isLoadedTask, setIsLoadedTask }) => {
-  const [ isOpedEditTaskList, setIsOpenEditTaskList ] = useState(false)
+export const TaskContainer: FC<TaskContainerPropsType> = memo(({ 
+  selectedTaskListId, 
+  isLoadedTask, 
+  setIsLoadedTask, 
+  setIsOpenEditTaskList,
+  isOpedEditTaskList,
+  setSelectedOpenSettingTaskId,
+  setIsOpenSettingTaskId,
+  selectedEditTaskId,
+  setSelectedEditTaskId,
+}) => {
 
   const dispatch = useAppDispatch();
   const taskList = useAppSelector(selectTaskListById(selectedTaskListId));
@@ -46,12 +61,12 @@ export const TaskContainer: FC<TaskContainerPropsType> = memo(({ selectedTaskLis
         :<div className={css.taskContainer_label} onClick={() => setIsOpenEditTaskList(true)}>{taskList.caption}</div>
         }
         <div className={css.taskContainer_buttonGroup}>
-          <IconButton
+          {/* <IconButton
             onClick={() => {}}
             label='Коментарии'
           >
             <BsChatText/>
-          </IconButton>
+          </IconButton> */}
           <IconButton
             onClick={() => {}}
             label='Пригласить'
@@ -59,14 +74,17 @@ export const TaskContainer: FC<TaskContainerPropsType> = memo(({ selectedTaskLis
             <AiOutlineUsergroupAdd/>
           </IconButton>
           <IconButton
-            onClick={() => {}}
+            onClick={() => setSelectedOpenSettingTaskId(true)}
           >
             <BsGrid3X2Gap/>
           </IconButton>
         </div>
       </header>
       <ListOfTask
+        setIsOpenSettingTaskId={setIsOpenSettingTaskId}
         selectedTaskListId={selectedTaskListId}
+        selectedEditTaskId={selectedEditTaskId}
+        setSelectedEditTaskId={setSelectedEditTaskId}
       />
     </div>
   )

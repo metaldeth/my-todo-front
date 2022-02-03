@@ -10,9 +10,14 @@ import css from './styles.module.scss';
 export type NavigationPropsType = {
   setIsOpenAside: React.Dispatch<React.SetStateAction<boolean>>;
   isOpenAside: boolean;
+  setSelectedTaskListId: React.Dispatch<React.SetStateAction<number | null>>;
 }
 
-export const Navigation: FC<NavigationPropsType> = ({ setIsOpenAside, isOpenAside }) => {
+export const Navigation: FC<NavigationPropsType> = ({ 
+  setIsOpenAside, 
+  isOpenAside,
+  setSelectedTaskListId,
+}) => {
   return(
     <AppBar>
       <div className={css.nav_group}>
@@ -22,7 +27,7 @@ export const Navigation: FC<NavigationPropsType> = ({ setIsOpenAside, isOpenAsid
           <AiOutlineBars/>
         </IconAppBarButton>
         <IconAppBarButton
-          onClick={() => {}}
+          onClick={() => setSelectedTaskListId(null)}
         >
           <AiOutlineHome/>
         </IconAppBarButton>

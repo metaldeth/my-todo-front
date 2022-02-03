@@ -58,3 +58,72 @@
   font-size: larger;
   font-weight: 700;
 }
+
+.createTaskList_modal {
+  position: fixed;
+  z-index: 999999;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.233);
+}
+
+.createTaskList_box {
+  width: 300px;
+  height: 300px;
+  padding: 100px 50px;
+  margin: 100px auto;
+  border-radius: 10px;
+  background-color: white;
+}
+
+.createTaskList_form {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.settingTaskList_modal {
+  position: fixed;
+  z-index: 999999;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0);
+}
+
+.settingTaskList_box {
+  position: fixed;
+  width: 200px;
+  height: 300px;
+  padding: 10px;
+  margin: 100px auto;
+  border: 1px solid $borderColor;
+  border-radius: 10px;
+  background-color: white;
+}
+
+.asideSettingTaskList_boxPosition {
+  left: 148px;
+  top: 54px;
+}
+
+.settingTaskList_boxPosition {
+  left: 1200px;
+  top: 15px;
+}
+
+.settingTaskList_item {
+  padding-left: 10px;
+  cursor: pointer;
+  display: flex;
+  height: 30px;
+  justify-content: space-between;
+  background-color: $notSelectColor;
+  border-radius: 3px;
+  transition: background-color 0.25s;
+  &:hover{
+    background-color: $selectColor;
+  }
+}
+

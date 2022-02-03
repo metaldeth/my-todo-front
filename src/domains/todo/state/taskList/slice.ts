@@ -52,7 +52,8 @@ export const taskListSlice = createSlice({
 
       delete state.map[taskListId];
 
-      //todo
+      const indexOfDelete = state.list.findIndex(id => id === taskListId);
+      state.list.splice(indexOfDelete, 1);
     })
   }
 })

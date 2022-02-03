@@ -1,10 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { removeOneTask, removeTask } from ".";
 import { TaskDTO } from "../../../../types/serverInterface/task/taskDTO";
 import { 
   createTask, 
   editTask, 
   fetchListOfTaskByTaskListId, 
-  removeTask
 } from "./thunk";
 
 export interface TaskListState {
@@ -49,9 +49,16 @@ export const taskSlice = createSlice({
       state.map[data.id] = data;
     })
 
+    builder.addCase(removeOneTask.fulfilled, (state, action) => {
+      const { taskListId, taskId } = action.payload;
+      const indexOfDelete = state.listByTaskListId[taskListId].findIndex(id => id === taskId);
+      state.listByTaskListId[taskListId].splice(indexOfDelete, 1);
+    })
+
     builder.addCase(removeTask.fulfilled, (state, action) => {
-      const taskId = action.payload;
-      delete state.map[taskId];
+      const { taskListId, taskId } = action.payload;
+      const indexOfDelete = state.listByTaskListId[taskListId].findIndex(id => id === taskId);
+      state.listByTaskListId[taskListId].splice(indexOfDelete, 1);
 
       //todo
     })

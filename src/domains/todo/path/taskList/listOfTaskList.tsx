@@ -15,12 +15,16 @@ export type ListOfTaskListPropsType = {
   setSelectedTaskListId: React.Dispatch<React.SetStateAction<number | null>>;
   selectedTaskListId: number | null;
   setIsLoadedTask: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsCreateTaskList: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsAsideSettingTaskList: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const ListOfTaskList: FC<ListOfTaskListPropsType> = memo(({ 
   selectedTaskListId, 
   setSelectedTaskListId,
-  setIsLoadedTask
+  setIsLoadedTask,
+  setIsCreateTaskList,
+  setIsAsideSettingTaskList,
 }) => {
   const listOfTaskList = useAppSelector(selectListOfTaskList);
 
@@ -36,6 +40,7 @@ export const ListOfTaskList: FC<ListOfTaskListPropsType> = memo(({
           setSelectedTaskListId={setSelectedTaskListId}
           selectedTaskListId={selectedTaskListId}
           setIsLoadedTask={setIsLoadedTask}
+          setIsAsideSettingTaskList={setIsAsideSettingTaskList}
         />
       )
     })
@@ -56,7 +61,7 @@ export const ListOfTaskList: FC<ListOfTaskListPropsType> = memo(({
         </div>
         <div>
           <IconButton
-            onClick={() => {}}
+            onClick={() => setIsCreateTaskList(true)}
           >
             <AiOutlinePlus/>
           </IconButton>

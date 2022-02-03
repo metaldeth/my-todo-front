@@ -1,4 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
+import { number } from "yup/lib/locale";
 import { api } from "../../../../app/api";
 import { CreateTaskDTO, EditTaskDTO, TaskDTO } from "../../../../types/serverInterface/task/taskDTO";
 
@@ -28,10 +29,18 @@ export const editTask = createAsyncThunk<
   return api.task.edit(payload.data, payload.taskId);
 })
 
+export const removeOneTask = createAsyncThunk<
+  { taskListId: number, taskId: number },
+  { taskListId: number, taskId: number }
+>('task/removeOne', async ({ taskListId, taskId }) => {
+  await api.task.removeOne(taskListId, taskId)
+  return { taskListId, taskId }
+})
+
 export const removeTask = createAsyncThunk<
-  number,
-  number
->('taskList/remove', async (taskId: number) => {
+  { taskListId: number, taskId: number },
+  { taskListId: number, taskId: number }
+>('taskList/remove', async ({ taskListId, taskId }) => {
   await api.task.remove(taskId)
-  return taskId
+  return { taskListId, taskId }
 })

@@ -12,17 +12,30 @@ import { CreateTask } from ".";
 
 export type ListOfTaskPropsType = {
   selectedTaskListId: number;
+  setIsOpenSettingTaskId: React.Dispatch<React.SetStateAction<number | null>>;
+  setSelectedEditTaskId: React.Dispatch<React.SetStateAction<number | null>>;
+  selectedEditTaskId: number | null;
 }
 
 export const ListOfTask: FC<ListOfTaskPropsType> = memo(({
-  selectedTaskListId
+  selectedTaskListId,
+  setIsOpenSettingTaskId,
+  selectedEditTaskId,
+  setSelectedEditTaskId
 }) => {
   const [ isOpenCreate, setIsOpenCreate ] = useState(false);
 
   const listOfTask = useAppSelector(selectListOfTaskByTaskListId(selectedTaskListId));
   return(
     <>
-      {listOfTask.map(task => <TaskItem key={task.id} task={task}/>)}
+      {listOfTask.map(task => 
+        <TaskItem 
+          key={task.id} 
+          task={task} 
+          setIsOpenSettingTaskId={setIsOpenSettingTaskId}
+          selectedEditTaskId={selectedEditTaskId}
+          setSelectedEditTaskId={setSelectedEditTaskId}
+        />)}
       { isOpenCreate 
         ?<CreateTask
           selectedTaskListId={selectedTaskListId}
