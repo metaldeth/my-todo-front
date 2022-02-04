@@ -7,7 +7,6 @@ import css from './styles.module.scss';
 
 export type AsideSettingTaskListPropsType = {
   setIsAsideSettingTaskList: React.Dispatch<React.SetStateAction<boolean>>;
-  setIsLoaded: React.Dispatch<React.SetStateAction<boolean>>;
   selectedTaskListId: number | null;
   setSelectedTaskListId: React.Dispatch<React.SetStateAction<number | null>>;
 }
@@ -15,18 +14,16 @@ export type AsideSettingTaskListPropsType = {
 export const AsideSettingTaskList: FC<AsideSettingTaskListPropsType> = ({ 
   setIsAsideSettingTaskList,
   selectedTaskListId,
-  setIsLoaded,
   setSelectedTaskListId
 }) => {
   const dispatch = useAppDispatch();
 
   const remove = () => {
     if(!selectedTaskListId) return;
-    setSelectedTaskListId(null);
-    setIsAsideSettingTaskList(false);
     dispatch(removeTaskList(selectedTaskListId))
       .then(() => {
-        setIsLoaded(false);
+        setSelectedTaskListId(null);
+        setIsAsideSettingTaskList(false);
       });
   };
 

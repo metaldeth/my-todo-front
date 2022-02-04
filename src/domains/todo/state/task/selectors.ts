@@ -5,6 +5,11 @@ export const selectListOfTaskByTaskListId = (taskListId: number) => (state: Root
   return listByTaskListId[taskListId].map(taskId => map[taskId]);
 }
 
+export const selectListOfCompletedTaskByTaskListId = (taskListId: number) => (state: RootState) => {
+  const { listOfCompletedTaskByTaskListId, map } = state.task;
+  return listOfCompletedTaskByTaskListId[taskListId].map(taskId => map[taskId]);
+}
+
 export const selectTaskById = (taskId: number) => (state: RootState) => {
   return state.task.map[taskId];
 }

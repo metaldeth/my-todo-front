@@ -6,4 +6,6 @@ export const editTaskValidationScheme: Yup.SchemaOf<EditTaskDTO> = Yup.object().
     .required('Required'),
   description: Yup.string()
     .required('Required'),
+  isComplete: Yup.boolean()
+    .required('Required')
 })

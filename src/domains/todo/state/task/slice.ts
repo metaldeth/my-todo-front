@@ -1,22 +1,26 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { removeOneTask, removeTask } from ".";
 import { TaskDTO } from "../../../../types/serverInterface/task/taskDTO";
 import { 
   createTask, 
   editTask, 
   fetchListOfTaskByTaskListId, 
+  fetchListOfCompletedTaskByTaskListId,
+  removeOneTask,
+  removeTask,
 } from "./thunk";
 
 export interface TaskListState {
   map: Record<number, TaskDTO>;
   list: number[];
   listByTaskListId: Record<number, Array<number>>;
+  listOfCompletedTaskByTaskListId: Record<number, Array<number>>;
 }
 
 const initialState: TaskListState = {
   map: {},
   list: [],
   listByTaskListId: {},
+  listOfCompletedTaskByTaskListId: {},
 }
 
 export const taskSlice = createSlice({
@@ -37,6 +41,19 @@ export const taskSlice = createSlice({
       })
     })
 
+    builder.addCase(fetchListOfCompletedTaskByTaskListId.fulfilled, (state, action) => {
+      const { list, taskListId } = action.payload;
+
+      state.list = [];
+      state.listOfCompletedTaskByTaskListId[taskListId] = [];
+
+      list.forEach(task => {
+        state.map[task.id] = task;
+        state.list.push(task.id);
+        state.listOfCompletedTaskByTaskListId[taskListId].push(task.id);
+      })
+    })
+
     builder.addCase(createTask.fulfilled, (state, action) => {
       const { data, taskListId } = action.payload;
       state.map[data.id] = data;
@@ -45,8 +62,21 @@ export const taskSlice = createSlice({
     })
 
     builder.addCase(editTask.fulfilled, (state, action) => {
-      const data = action.payload;
-      state.map[data.id] = data;
+      const { data: task, taskListId } = action.payload;
+      state.map[task.id] = task;
+
+
+      if(task.isComplete) {
+        const indexOfDelete = state.listByTaskListId[taskListId].findIndex(id => task.id === id);
+        if(indexOfDelete === -1) return;
+        state.listByTaskListId[taskListId].splice(indexOfDelete, 1);
+        state.listOfCompletedTaskByTaskListId[taskListId].push(task.id);
+      }else {
+        const indexOfDelete = state.listOfCompletedTaskByTaskListId[taskListId].findIndex(id => task.id === id);
+        if(indexOfDelete === -1) return;
+        state.listOfCompletedTaskByTaskListId[taskListId].splice(indexOfDelete, 1);
+        state.listByTaskListId[taskListId].push(task.id);
+      }
     })
 
     builder.addCase(removeOneTask.fulfilled, (state, action) => {

@@ -9,20 +9,15 @@ import { Loader } from "../../../components/loader";
 import { AsideSettingTaskList, CreateTaskList, ListOfTaskList, SettingTaskList } from "./taskList";
 import { TaskContainer } from "./task";
 import { SettingTask } from "./task/settingTask";
+import { Modal } from "./modal";
 
 export const ToDo: FC<{}> = () => {
   const dispatch = useAppDispatch();
 
   const [ isLoaded, setIsLoaded ] = useState(false);
   const [ isLoadedTask, setIsLoadedTask ] = useState(false);
-  const [ selectedTaskListId, setSelectedTaskListId ] = useState<number | null>(null);
   const [ isOpenAside, setIsOpenAside ] = useState(true);
-  const [ isCreateTaskList, setIsCreateTaskList ] = useState(false);
-  const [ isOpedEditTaskList, setIsOpenEditTaskList ] = useState(false);
-  const [ isAsideSettingTaskList, setIsAsideSettingTaskList ] = useState(false);
-  const [ isOpenSettingTaskList, setIsOpenSettingTaskList ] = useState(false);
-  const [ selectedOpenSettingTaskId, setSelectedOpenSettingTaskId ] = useState<number | null>(null);
-  const [ selectedEditTaskId, setSelectedEditTaskId ] = useState<number | null>(null);
+  const [ selectedTaskListId, setSelectedTaskListId ] = useState<number | null>(null);
 
 
   useEffect(() => {
@@ -34,40 +29,6 @@ export const ToDo: FC<{}> = () => {
 
   return(
     <>
-      {/* Блок модальных окон */}
-      {isCreateTaskList && 
-        <CreateTaskList 
-          setIsCreateTaskList={setIsCreateTaskList}
-        />
-      }
-      {isAsideSettingTaskList && 
-        <AsideSettingTaskList 
-          setIsAsideSettingTaskList={setIsAsideSettingTaskList}
-          selectedTaskListId={selectedTaskListId}
-          setIsLoaded={setIsLoaded}
-          setSelectedTaskListId={setSelectedTaskListId}
-        />
-      }
-      {isOpenSettingTaskList && 
-        <SettingTaskList
-          selectedTaskListId={selectedTaskListId}
-          setIsLoaded={setIsLoaded}
-          setIsOpenEditTaskList={setIsOpenEditTaskList}
-          setIsOpenSettingTaskList={setIsOpenSettingTaskList}
-          setSelectedTaskListId={setSelectedTaskListId}
-        />
-      }
-      {selectedOpenSettingTaskId && 
-        <SettingTask
-          selectedTaskListId={selectedTaskListId}
-          setIsLoaded={setIsLoaded}
-          setSelectedOpenSettingTaskId={setSelectedOpenSettingTaskId}
-          selectedSettingTaskId={selectedOpenSettingTaskId}
-          setSelectedEditTaskId={setSelectedEditTaskId}
-        />
-      } 
-
-
       <Navigation
         isOpenAside={isOpenAside}
         setIsOpenAside={setIsOpenAside}
@@ -79,8 +40,6 @@ export const ToDo: FC<{}> = () => {
             selectedTaskListId={selectedTaskListId}
             setSelectedTaskListId={setSelectedTaskListId}
             setIsLoadedTask={setIsLoadedTask}
-            setIsCreateTaskList={setIsCreateTaskList}
-            setIsAsideSettingTaskList={setIsAsideSettingTaskList}
           />
         </aside> 
       }
@@ -90,12 +49,8 @@ export const ToDo: FC<{}> = () => {
               selectedTaskListId={selectedTaskListId}
               isLoadedTask={isLoadedTask}
               setIsLoadedTask={setIsLoadedTask}
-              isOpedEditTaskList={isOpedEditTaskList}
-              setIsOpenEditTaskList={setIsOpenEditTaskList}
-              setSelectedOpenSettingTaskId={setIsOpenSettingTaskList}
-              setIsOpenSettingTaskId={setSelectedOpenSettingTaskId}
-              selectedEditTaskId={selectedEditTaskId}
-              setSelectedEditTaskId={setSelectedEditTaskId}
+              setIsLoaded={setIsLoaded}
+              setSelectedTaskListId={setSelectedTaskListId}
             />
           : null
         }

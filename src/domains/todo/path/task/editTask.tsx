@@ -10,23 +10,25 @@ import { Button } from "../../../../components/button";
 
 export type EditTaskPropsType = {
   task: TaskDTO;
-  setSelectedEditTaskId: React.Dispatch<React.SetStateAction<number | null>>;
+  setIsEdit: React.Dispatch<React.SetStateAction<boolean>>;
+  selectedTaskListId: number;
 }
 
-export const EditTask: FC<EditTaskPropsType> = ({ task, setSelectedEditTaskId }) => {
+export const EditTask: FC<EditTaskPropsType> = ({ task, setIsEdit, selectedTaskListId }) => {
   const dispatch = useAppDispatch();
 
   const initialValues: EditTaskDTO = {
     caption: task.caption,
     description: task.description,
+    isComplete: task.isComplete
   }
 
   const formik = useFormik({
     validationSchema: editTaskValidationScheme,
     initialValues,
     onSubmit: (values, formikHelpers) => {
-      return dispatch(editTask({data: values, taskId: task.id })).then(() => {
-        setSelectedEditTaskId(null)
+      return dispatch(editTask({data: values, taskId: task.id, taskListId: selectedTaskListId })).then(() => {
+        setIsEdit(false)
       }, () => {
         formikHelpers.setSubmitting(false);
       })
@@ -59,7 +61,7 @@ export const EditTask: FC<EditTaskPropsType> = ({ task, setSelectedEditTaskId })
           color="button_primary"
         />
         <Button
-          onClick={() => setSelectedEditTaskId(null)}
+          onClick={() => setIsEdit(false)}
           label='Отмена'
           color="button_secondary"
         />

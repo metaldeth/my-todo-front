@@ -2,6 +2,7 @@ export type TaskDTO = {
   id: number;
   caption: string;
   description: string;
+  isComplete: boolean;
 }
 
 export type CreateTaskDTO = {
@@ -12,4 +13,5 @@ export type CreateTaskDTO = {
 export type EditTaskDTO = {
   caption: string;
   description: string;
+  isComplete: boolean;
 }

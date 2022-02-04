@@ -3,6 +3,7 @@ import css from './styles.module.scss';
 import { useAppDispatch } from "../../../../app/hooks";
 import { removeTaskList } from "../../state/taskList";
 import { AiOutlineDelete, AiOutlineEdit } from "react-icons/ai";
+import { BsCheckCircle, BsCircle } from "react-icons/bs";
 import classNames from "classnames";
 
 export type SettingTaskListPropsType = {
@@ -11,6 +12,8 @@ export type SettingTaskListPropsType = {
   setSelectedTaskListId: React.Dispatch<React.SetStateAction<number | null>>;
   setIsOpenEditTaskList: React.Dispatch<React.SetStateAction<boolean>>;
   setIsOpenSettingTaskList: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsShowCompletedTask: React.Dispatch<React.SetStateAction<boolean>>;
+  isShowCompletedTask: boolean;
 }
 
 export const SettingTaskList: FC<SettingTaskListPropsType> = ({ 
@@ -19,6 +22,8 @@ export const SettingTaskList: FC<SettingTaskListPropsType> = ({
   setSelectedTaskListId,
   setIsOpenEditTaskList,
   setIsOpenSettingTaskList,
+  setIsShowCompletedTask,
+  isShowCompletedTask,
 }) => {
   const dispatch = useAppDispatch();
 
@@ -49,6 +54,17 @@ export const SettingTaskList: FC<SettingTaskListPropsType> = ({
         >
           <div>
             <AiOutlineEdit/> Редактировать список
+          </div>
+        </div>
+        <div 
+          className={css.settingTaskList_item} 
+          onClick={() => setIsShowCompletedTask(!isShowCompletedTask)}
+        >
+          <div>
+            {isShowCompletedTask 
+              ? <><BsCircle/> Скрыть выполненые задачи</>
+              : <><BsCheckCircle/> Показать выполненые задачи</>
+            }
           </div>
         </div>
         <div className={css.settingTaskList_item}>

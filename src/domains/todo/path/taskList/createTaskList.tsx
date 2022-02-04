@@ -31,34 +31,32 @@ export const CreateTaskList: FC<CreateTaskListPropsType> = ({ setIsCreateTaskLis
   })
 
   return(
-    <div className={css.createTaskList_modal}>
-      <div className={css.createTaskList_box}>
-        <h1>Создать список задач</h1>
-        <form onSubmit={formik.handleSubmit} className={css.createTaskList_form}>
-          <div className={css.editTask_textFieldBox}>
-            <TextField
-              isDisabled={false}
-              // label='название'
-              name='caption'
-              placeholder='Задача'
-              onNativeChange={formik.handleChange}
-              value={formik.values.caption}
-            />
-          </div>
-          <div>
-            <Button
-              onClick={() => formik.isSubmitting}
-              label='Сохранить'
-              color="button_primary"
-            />
-            <Button
-              onClick={() => setIsCreateTaskList(false)}
-              label='Отмена'
-              color="button_secondary"
-            />
-          </div>
-        </form>
-      </div>
+    <div className={css.createTaskList_box}>
+      <h1>Создать список задач</h1>
+      <form onSubmit={formik.handleSubmit} className={css.createTaskList_form}>
+        <div className={css.editTask_textFieldBox}>
+          <TextField
+            isDisabled={false}
+            // label='название'
+            name='caption'
+            placeholder='Задача'
+            onNativeChange={formik.handleChange}
+            value={formik.values.caption}
+          />
+        </div>
+        <div>
+          <Button
+            onClick={() => formik.isSubmitting}
+            label='Сохранить'
+            color="button_primary"
+          />
+          <Button
+            onClick={() => setIsCreateTaskList(false)}
+            label='Отмена'
+            color="button_secondary"
+          />
+        </div>
+      </form>
     </div>
   )
 }

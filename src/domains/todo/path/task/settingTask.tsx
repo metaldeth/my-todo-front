@@ -6,42 +6,38 @@ import classNames from "classnames";
 import { removeOneTask, removeTask } from "../../state/task";
 
 export type SettingTaskPropsType = {
-  setSelectedOpenSettingTaskId:React.Dispatch<React.SetStateAction<number | null>>;
-  selectedTaskListId: number | null;
-  selectedSettingTaskId: number | null;
-  setIsLoaded: React.Dispatch<React.SetStateAction<boolean>>;
-  setSelectedEditTaskId: React.Dispatch<React.SetStateAction<number | null>>;
+  setIsOpenSetting: React.Dispatch<React.SetStateAction<boolean>>;
+  selectedTaskListId: number;
+  taskId: number;
 }
 
 export const SettingTask: FC<SettingTaskPropsType> = ({ 
-  setSelectedOpenSettingTaskId,
+  setIsOpenSetting,
   selectedTaskListId,
-  setIsLoaded,
-  selectedSettingTaskId,
-  setSelectedEditTaskId,
+  taskId,
 }) => {
   const dispatch = useAppDispatch();
 
   const removeOne = () => {
-    if(!selectedTaskListId || !selectedSettingTaskId) return;
-    setSelectedOpenSettingTaskId(null);
-    dispatch(removeOneTask({taskListId: selectedTaskListId, taskId: selectedSettingTaskId}))
+    if(!selectedTaskListId) return;
+    setIsOpenSetting(false);
+    dispatch(removeOneTask({taskListId: selectedTaskListId, taskId }))
       .then(() => {
-        setIsLoaded(false);
+        // setIsLoaded(false);
       });
   };
 
   const remove = () => {
-    if(!selectedTaskListId || !selectedSettingTaskId) return;
-    setSelectedOpenSettingTaskId(null);
-    dispatch(removeTask({taskListId: selectedTaskListId, taskId: selectedSettingTaskId}))
+    if(!selectedTaskListId) return;
+    setIsOpenSetting(false);
+    dispatch(removeTask({taskListId: selectedTaskListId, taskId}))
       .then(() => {
-        setIsLoaded(false);
+        // setIsLoaded(false);
       });
   };
 
   return (
-    <div className={css.settingTask_modal} onClick={() => setSelectedOpenSettingTaskId(null)}>
+    <div className={css.settingTask_modal} onClick={() => setIsOpenSetting(false)}>
       <div className={classNames(css.settingTask_box, css.settingTask_boxPosition)}>
         <div 
           className={css.settingTask_item} 
@@ -57,14 +53,6 @@ export const SettingTask: FC<SettingTaskPropsType> = ({
         >
           <div>
             <AiOutlineDelete/> Удалить везде
-          </div>
-        </div>
-        <div 
-          className={css.settingTask_item} 
-          onClick={() => setSelectedEditTaskId(selectedSettingTaskId)}
-        >
-          <div>
-            <AiOutlineEdit/> Редактировать задачу
           </div>
         </div>
         <div className={css.settingTask_item}>

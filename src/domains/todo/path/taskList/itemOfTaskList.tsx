@@ -5,13 +5,14 @@ import { TaskListDTO } from "../../../../types/serverInterface/task/taskListDTO"
 import { BsCircleFill } from 'react-icons/bs'
 import { AiOutlineEllipsis } from "react-icons/ai";
 import { IconButton } from "../../../../components/appBar";
+import { Modal } from "../modal";
+import { AsideSettingTaskList, SettingTaskList } from ".";
 
 export type ItemOfTaskListPropsType = {
   taskList: TaskListDTO;
   setSelectedTaskListId: React.Dispatch<React.SetStateAction<number | null>>;
   selectedTaskListId: number | null;
   setIsLoadedTask: React.Dispatch<React.SetStateAction<boolean>>;
-  setIsAsideSettingTaskList: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const ItemOfTaskList: FC<ItemOfTaskListPropsType> = memo(({ 
@@ -19,8 +20,8 @@ export const ItemOfTaskList: FC<ItemOfTaskListPropsType> = memo(({
   setSelectedTaskListId, 
   selectedTaskListId,
   setIsLoadedTask,
-  setIsAsideSettingTaskList
 }) => {
+  const [ isAsideSettingTaskList, setIsAsideSettingTaskList ] = useState(false);
 
   const handleChange = () => {
     (taskList.id === selectedTaskListId) 
@@ -50,6 +51,16 @@ export const ItemOfTaskList: FC<ItemOfTaskListPropsType> = memo(({
           <AiOutlineEllipsis/>
         </IconButton>
       </div>
+      <Modal
+        isOpen={isAsideSettingTaskList}
+        onClose={setIsAsideSettingTaskList}
+      >
+        <AsideSettingTaskList 
+          selectedTaskListId={selectedTaskListId}
+          setIsAsideSettingTaskList={setIsAsideSettingTaskList}
+          setSelectedTaskListId={setSelectedTaskListId}
+        />
+      </Modal>
     </div>
   )
 })

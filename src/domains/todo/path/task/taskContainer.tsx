@@ -14,31 +14,31 @@ import {
   AiOutlineUsergroupAdd,
 } from 'react-icons/ai'
 import { IconButton } from "../../../../components/appBar";
-import { EditTaskList } from "../taskList";
+import { EditTaskList, SettingTaskList } from "../taskList";
+import { ListOfCompletedTaskContainer } from "./listOfCompletedTaskContainer";
+import { Modal } from "../modal";
 
 export type TaskContainerPropsType = {
-  selectedTaskListId: number;
+  setSelectedTaskListId: React.Dispatch<React.SetStateAction<number | null>>
   setIsLoadedTask: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsLoaded: React.Dispatch<React.SetStateAction<boolean>>;
+  selectedTaskListId: number;
   isLoadedTask: boolean;
-  setIsOpenEditTaskList: React.Dispatch<React.SetStateAction<boolean>>;
-  isOpedEditTaskList: boolean;
-  setSelectedOpenSettingTaskId: React.Dispatch<React.SetStateAction<boolean>>;
-  setIsOpenSettingTaskId: React.Dispatch<React.SetStateAction<number | null>>;
-  setSelectedEditTaskId: React.Dispatch<React.SetStateAction<number | null>>;
-  selectedEditTaskId: number | null;
 }
 
 export const TaskContainer: FC<TaskContainerPropsType> = memo(({ 
   selectedTaskListId, 
   isLoadedTask, 
   setIsLoadedTask, 
-  setIsOpenEditTaskList,
-  isOpedEditTaskList,
-  setSelectedOpenSettingTaskId,
-  setIsOpenSettingTaskId,
-  selectedEditTaskId,
-  setSelectedEditTaskId,
+  setSelectedTaskListId,
+  setIsLoaded,
 }) => {
+
+  const [ isOpedEditTaskList, setIsOpenEditTaskList ] = useState(false);
+  const [ isOpenSettingTaskList, setIsOpenSettingTaskList ] = useState(false);
+  const [ isShowCompletedTask, setIsShowCompletedTask ] = useState(false);
+
+
 
   const dispatch = useAppDispatch();
   const taskList = useAppSelector(selectTaskListById(selectedTaskListId));
@@ -61,12 +61,6 @@ export const TaskContainer: FC<TaskContainerPropsType> = memo(({
         :<div className={css.taskContainer_label} onClick={() => setIsOpenEditTaskList(true)}>{taskList.caption}</div>
         }
         <div className={css.taskContainer_buttonGroup}>
-          {/* <IconButton
-            onClick={() => {}}
-            label='Коментарии'
-          >
-            <BsChatText/>
-          </IconButton> */}
           <IconButton
             onClick={() => {}}
             label='Пригласить'
@@ -74,18 +68,37 @@ export const TaskContainer: FC<TaskContainerPropsType> = memo(({
             <AiOutlineUsergroupAdd/>
           </IconButton>
           <IconButton
-            onClick={() => setSelectedOpenSettingTaskId(true)}
+            onClick={() => setIsOpenSettingTaskList(true)}
           >
             <BsGrid3X2Gap/>
           </IconButton>
         </div>
       </header>
       <ListOfTask
-        setIsOpenSettingTaskId={setIsOpenSettingTaskId}
         selectedTaskListId={selectedTaskListId}
-        selectedEditTaskId={selectedEditTaskId}
-        setSelectedEditTaskId={setSelectedEditTaskId}
       />
+      {
+        isShowCompletedTask 
+        && !!selectedTaskListId 
+        && <ListOfCompletedTaskContainer 
+          selectedTaskListId={selectedTaskListId}
+        />
+      }
+
+      <Modal
+        isOpen={isOpenSettingTaskList}
+        onClose={() => {}}
+      >
+        <SettingTaskList 
+          setIsOpenEditTaskList={setIsOpenEditTaskList}
+          isShowCompletedTask={isShowCompletedTask}
+          selectedTaskListId={selectedTaskListId}
+          setIsLoaded={setIsLoaded}
+          setIsOpenSettingTaskList={setIsOpenSettingTaskList}
+          setIsShowCompletedTask={setIsShowCompletedTask}
+          setSelectedTaskListId={setSelectedTaskListId}
+        />
+      </Modal>
     </div>
   )
 })

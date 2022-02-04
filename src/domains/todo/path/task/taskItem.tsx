@@ -1,28 +1,27 @@
 import { FC, memo, useState } from "react";
 import { TaskDTO } from "../../../../types/serverInterface/task/taskDTO";
-import { BsCircle, BsCheckCircle, BsChatText } from "react-icons/bs";
+import { BsChatText } from "react-icons/bs";
 import { AiOutlineEdit, AiOutlineEllipsis } from "react-icons/ai";
 import css from './styles.module.scss';
-import iconCss from '../taskList/styles.module.scss'
 import classNames from 'classnames';
 import { IconButton } from "../../../../components/appBar";
 import { EditTask } from "./editTask";
+import { CompletedTask } from "./completedTask";
+import { Modal } from "../modal";
+import { SettingTask } from "./settingTask";
 
 export type TaskItemPropsType = {
   task: TaskDTO,
-  setIsOpenSettingTaskId: React.Dispatch<React.SetStateAction<number | null>>;
-  setSelectedEditTaskId: React.Dispatch<React.SetStateAction<number | null>>;
-  selectedEditTaskId: number | null;
+  selectedTaskListId: number;
 }
 
 export const TaskItem: FC<TaskItemPropsType> = memo(({ 
   task,
-  setIsOpenSettingTaskId,
-  selectedEditTaskId,
-  setSelectedEditTaskId
+  selectedTaskListId,
  }) => {
-  const [ isHoverCheckBox, setIsHoverCheckBox ] = useState(false);
   const [ isHoverItem, setIsHoverItem ] = useState(false);
+  const [ isOpenSetting, setIsOpenSetting ] = useState(false);
+  const [ isEdit, setIsEdit ] = useState(false);
 
   return(
     <div 
@@ -30,17 +29,14 @@ export const TaskItem: FC<TaskItemPropsType> = memo(({
       onMouseEnter={() => setIsHoverItem(true)}
       onMouseLeave={() => setIsHoverItem(false)}  
     >
-      {(selectedEditTaskId === task.id)
-        ?<EditTask task={task} setSelectedEditTaskId={setSelectedEditTaskId}/>
+      {isEdit
+        ?<EditTask task={task} setIsEdit={setIsEdit} selectedTaskListId={selectedTaskListId}/>
         :<>
           <div className={css.taskItem_content}>
-            <div 
-              className={classNames(iconCss.asideBar_itemIcon, iconCss['icon_x-large'])}
-              onMouseEnter={() => setIsHoverCheckBox(true)}
-              onMouseLeave={() => setIsHoverCheckBox(false)}
-            >
-              {isHoverCheckBox ? <BsCheckCircle/> : <BsCircle/>}
-            </div>
+            <CompletedTask
+              task={task}
+              selectedTaskListId={selectedTaskListId}
+            />
             <div>
               <div className={classNames(css.taskItem_caption)}>{task.caption}</div>
               <div className={classNames(css.taskItem_description)}>{task.description}</div>
@@ -50,7 +46,7 @@ export const TaskItem: FC<TaskItemPropsType> = memo(({
             {isHoverItem && 
               <>
                 <IconButton
-                  onClick={() => setSelectedEditTaskId(task.id)}
+                  onClick={() => setIsEdit(true)}
                 >
                   <AiOutlineEdit/>
                 </IconButton>
@@ -60,7 +56,7 @@ export const TaskItem: FC<TaskItemPropsType> = memo(({
                   <BsChatText/>
                 </IconButton>
                 <IconButton
-                  onClick={() => setIsOpenSettingTaskId(task.id)}
+                  onClick={() => setIsOpenSetting(!isOpenSetting)}
                 >
                   <AiOutlineEllipsis/>
                 </IconButton>
@@ -70,6 +66,16 @@ export const TaskItem: FC<TaskItemPropsType> = memo(({
         </>
       }
       
+      <Modal
+        isOpen={isOpenSetting}
+        onClose={() => {}}
+      >
+        <SettingTask
+          selectedTaskListId={selectedTaskListId}
+          setIsOpenSetting={setIsOpenSetting}
+          taskId={task.id}
+        />
+      </Modal>
     </div>
   )
 })

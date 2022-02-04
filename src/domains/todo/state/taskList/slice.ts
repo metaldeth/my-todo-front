@@ -5,15 +5,11 @@ import { createTaskList, editTaskList, fetchListOfTaskList, removeTaskList } fro
 export interface TaskListState {
   map: Record<number, TaskListType>;
   list: number[];
-  listByUserId: Record<number, Array<number>>;
-  listByTaskId: Record<number, Array<number>>;
 }
 
 const initialState: TaskListState = {
   map: {},
   list: [],
-  listByUserId: {},
-  listByTaskId: {},
 }
 
 export const taskListSlice = createSlice({

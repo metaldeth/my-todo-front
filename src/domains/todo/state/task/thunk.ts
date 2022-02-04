@@ -4,13 +4,21 @@ import { api } from "../../../../app/api";
 import { CreateTaskDTO, EditTaskDTO, TaskDTO } from "../../../../types/serverInterface/task/taskDTO";
 
 export type CreateTaskRes = { taskListId: number, data: CreateTaskDTO };
-export type EditTaskRes = { taskId: number, data: EditTaskDTO };
+export type EditTaskRes = { taskId: number, taskListId: number, data: EditTaskDTO };
 
 export const fetchListOfTaskByTaskListId = createAsyncThunk<
   { list: TaskDTO[], taskListId: number },
   number
 >('/task', async (taskListId) => {
   const list = await api.task.fetchListOfTaskByTaskListId(taskListId);
+  return { list, taskListId }
+})
+
+export const fetchListOfCompletedTaskByTaskListId = createAsyncThunk<
+  { list: TaskDTO[], taskListId: number },
+  number
+>('/task/isComplete', async (taskListId) => {
+  const list = await api.task.fetchListOfCompletedTaskByTaskListId(taskListId);
   return { list, taskListId }
 })
 
@@ -23,10 +31,11 @@ export const createTask = createAsyncThunk<
 })
 
 export const editTask = createAsyncThunk<
-  TaskDTO,
+  { data: TaskDTO, taskListId: number },
   EditTaskRes
->('task/edit', async (payload: EditTaskRes) => {
-  return api.task.edit(payload.data, payload.taskId);
+>('task/edit', async ({ taskId, taskListId, data }) => {
+  const task = await api.task.edit(data, taskId, taskListId);
+  return { data: task, taskListId }
 })
 
 export const removeOneTask = createAsyncThunk<
