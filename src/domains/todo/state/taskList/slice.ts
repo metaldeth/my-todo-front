@@ -1,9 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { TaskListType } from "../../../../types/serverInterface/task/taskListDTO";
+import { TaskListDTO } from "../../../../types/serverInterface/task/taskListDTO";
 import { createTaskList, editTaskList, fetchListOfTaskList, removeTaskList } from "./thunk";
 
 export interface TaskListState {
-  map: Record<number, TaskListType>;
+  map: Record<number, TaskListDTO>;
   list: number[];
 }
 

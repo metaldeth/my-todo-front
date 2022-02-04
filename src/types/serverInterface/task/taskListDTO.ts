@@ -3,11 +3,6 @@ export type TaskListDTO = {
   caption: string;
 }
 
-export type TaskListType = {
-  id: number;
-  caption: string;
-}
-
 export type CreateTaskListDTO = {
   caption: string;
 }
