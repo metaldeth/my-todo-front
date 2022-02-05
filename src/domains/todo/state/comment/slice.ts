@@ -30,30 +30,30 @@ export const commentSlice = createSlice({
         state.list.push(comment.id);
         state.listByTaskId[taskId].push(comment.id);
       });
+    })
 
-      builder.addCase(createComment.fulfilled, (state, action) => {
-        const { comment, taskId } = action.payload;
-        state.list.push(comment.id);
-        state.listByTaskId[taskId].push(comment.id);
-        state.map[comment.id] = comment;
-      });
+    builder.addCase(createComment.fulfilled, (state, action) => {
+      const { comment, taskId } = action.payload;
+      state.list.push(comment.id);
+      state.listByTaskId[taskId].push(comment.id);
+      state.map[comment.id] = comment;
+    });
 
-      builder.addCase(editComment.fulfilled, (state, action) => {
-        const comment = action.payload;
-        state.map[comment.id] = comment;
-      });
+    builder.addCase(editComment.fulfilled, (state, action) => {
+      const comment = action.payload;
+      state.map[comment.id] = comment;
+    });
 
-      builder.addCase(removeComment.fulfilled, (state, action) => {
-        const { commentId, taskId } = action.payload;
+    builder.addCase(removeComment.fulfilled, (state, action) => {
+      const { commentId, taskId } = action.payload;
 
-        const indexOfDelete = state.list.findIndex(id => id === commentId);
-        state.list.splice(indexOfDelete, 1);
+      const indexOfDelete = state.list.findIndex(id => id === commentId);
+      state.list.splice(indexOfDelete, 1);
 
-        const indexOfDeleteByTaskId = state.listByTaskId[taskId].findIndex(id => id === commentId);
-        state.listByTaskId[taskId].splice(indexOfDeleteByTaskId, 1);
+      const indexOfDeleteByTaskId = state.listByTaskId[taskId].findIndex(id => id === commentId);
+      state.listByTaskId[taskId].splice(indexOfDeleteByTaskId, 1);
 
-        delete state.map[commentId];
-      })
+      delete state.map[commentId];
     })
   }
 })

@@ -9,6 +9,7 @@ import { EditTask } from "./editTask";
 import { CompletedTask } from "./completedTask";
 import { Modal } from "../modal";
 import { SettingTask } from "./settingTask";
+import { TaskModal } from "./taskModal";
 
 export type TaskItemPropsType = {
   task: TaskDTO,
@@ -22,6 +23,7 @@ export const TaskItem: FC<TaskItemPropsType> = memo(({
   const [ isHoverItem, setIsHoverItem ] = useState(false);
   const [ isOpenSetting, setIsOpenSetting ] = useState(false);
   const [ isEdit, setIsEdit ] = useState(false);
+  const [ isOpenTaskModal, setIsOpenTaskModal ] = useState(false);
 
   return(
     <div 
@@ -51,7 +53,7 @@ export const TaskItem: FC<TaskItemPropsType> = memo(({
                   <AiOutlineEdit/>
                 </IconButton>
                 <IconButton
-                  onClick={() => {}}
+                  onClick={() => setIsOpenTaskModal(true)}
                 >
                   <BsChatText/>
                 </IconButton>
@@ -74,6 +76,15 @@ export const TaskItem: FC<TaskItemPropsType> = memo(({
           selectedTaskListId={selectedTaskListId}
           setIsOpenSetting={setIsOpenSetting}
           taskId={task.id}
+        />
+      </Modal>
+      <Modal
+        isOpen={isOpenTaskModal}
+        onClose={() => {}}
+      >
+        <TaskModal
+          task={task}
+          setIsOpenTaskModal={setIsOpenTaskModal}
         />
       </Modal>
     </div>

@@ -23,10 +23,7 @@ export const taskListSlice = createSlice({
       
       const list = action.payload;
       list.forEach(taskList => {
-        state.map[taskList.id] = {
-          id: taskList.id,
-          caption: taskList.caption,
-        };
+        state.map[taskList.id] = taskList;
         state.list.push(taskList.id);
       })
     })

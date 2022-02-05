@@ -1,0 +1,25 @@
+@import '/src/theme.scss'; 
+
+.createComment {
+  display: flex;
+}
+
+.createComment_button {
+  cursor: pointer;
+  margin-top: 5px;
+  color: $iconColor;
+  transition: color 0.2s ease-in-out;
+  &:hover {
+    color: $primaryColor;
+  }
+}
+
+.listOfComment_box {
+  margin-top: 10px;
+  border-top: 1px solid $borderColor;
+}
+
+.commentItem_box {
+  height: 30px;
+  border-bottom: 1px solid $borderColor;
+}

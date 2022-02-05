@@ -14,10 +14,8 @@ export const Modal: FC<ModalPropsType> = ({ isOpen, onClose, children }) => {
 	const element = useMemo(() => document.createElement("div"), []);
 
 	useEffect(() => {
-		console.log('modalRootElement, ', modalRootElement)
 		if (isOpen && modalRootElement) {
 			modalRootElement.appendChild(element);
-			console.log('modal');
 
 			return () => {
 				modalRootElement.removeChild(element);
