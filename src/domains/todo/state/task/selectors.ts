@@ -1,13 +1,13 @@
 import { RootState } from "../../../../app/store";
 
-export const selectListOfTaskByTaskListId = (taskListId: number) => (state: RootState) => {
-  const { listByTaskListId, map } = state.task;
-  return listByTaskListId[taskListId].map(taskId => map[taskId]);
+export const selectListOfTaskByTaskListId = (state: RootState) => {
+  const { list, map } = state.task;
+  return list.map(taskId => map[taskId]);
 }
 
-export const selectListOfCompletedTaskByTaskListId = (taskListId: number) => (state: RootState) => {
-  const { listOfCompletedTaskByTaskListId, map } = state.task;
-  return listOfCompletedTaskByTaskListId[taskListId].map(taskId => map[taskId]);
+export const selectListOfCompletedTaskByTaskListId = (state: RootState) => {
+  const { list, map } = state.task;
+  return list.map(taskId => map[taskId]);
 }
 
 export const selectTaskById = (taskId: number) => (state: RootState) => {

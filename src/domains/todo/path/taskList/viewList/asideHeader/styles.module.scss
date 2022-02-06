@@ -1,0 +1,8 @@
+@import '/src/theme.scss'; 
+
+.asideBar_itemIcon {
+  cursor: pointer;
+  display: inline-block;
+  margin-right: 10px;
+  color: $iconColor;
+}

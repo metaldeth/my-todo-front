@@ -1,0 +1,28 @@
+@import '/src/theme.scss'; 
+
+.taskItem {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+  width: 100%;
+  border-bottom: 1px solid $borderColor;
+}
+
+.taskItem_content {
+  display: flex;
+}
+
+.taskItem_caption {
+  color: $captionColor;
+  font-size: 14px;
+}
+
+.taskItem_description {
+  color: $descriptionColor;
+  font-size: 12px;
+}
+
+.taskItem_checkBox {
+  // color: $borderColor;
+  border-color: red;
+}

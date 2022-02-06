@@ -1,0 +1,14 @@
+@import '/src/theme.scss'; 
+
+.taskModal_box {
+  height: 500px;
+  width: 500px;
+  padding: 20px;
+  background-color: white;
+  border-radius: 10px;
+}
+
+.taskContainer_label {
+  font-size: larger;
+  font-weight: 700;
+}

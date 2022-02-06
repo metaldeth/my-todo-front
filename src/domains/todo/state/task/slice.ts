@@ -9,18 +9,16 @@ import {
   removeTask,
 } from "./thunk";
 
-export interface TaskListState {
+export interface TaskState {
   map: Record<number, TaskDTO>;
+  taskListId: number | null;
   list: number[];
-  listByTaskListId: Record<number, Array<number>>;
-  listOfCompletedTaskByTaskListId: Record<number, Array<number>>;
 }
 
-const initialState: TaskListState = {
+const initialState: TaskState = {
   map: {},
+  taskListId: null,
   list: [],
-  listByTaskListId: {},
-  listOfCompletedTaskByTaskListId: {},
 }
 
 export const taskSlice = createSlice({
@@ -28,29 +26,50 @@ export const taskSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
+    //TODO: в одну функцию дублирующие reducer
+
+    builder.addCase(fetchListOfTaskByTaskListId.pending, (state, action) => {
+      const taskListId = action.meta.arg;
+
+      if(taskListId === state.taskListId) return;
+
+      state.taskListId = taskListId;
+
+      state.map = {};
+      state.list = [];
+    })
+
+    builder.addCase(fetchListOfCompletedTaskByTaskListId.pending, (state, action) => {
+      const taskListId = action.meta.arg;
+
+      if(taskListId === state.taskListId) return;
+
+      state.taskListId = taskListId;
+
+      state.map = {};
+      state.list = [];
+    })
+    
+
     builder.addCase(fetchListOfTaskByTaskListId.fulfilled, (state, action) => {
       const { list, taskListId } = action.payload;
 
-      state.list = [];
-      state.listByTaskListId[taskListId] = [];
+      if(taskListId !== state.taskListId) return;
 
       list.forEach(task => {
         state.map[task.id] = task;
         state.list.push(task.id);
-        state.listByTaskListId[taskListId].push(task.id);
       })
     })
 
     builder.addCase(fetchListOfCompletedTaskByTaskListId.fulfilled, (state, action) => {
       const { list, taskListId } = action.payload;
 
-      state.list = [];
-      state.listOfCompletedTaskByTaskListId[taskListId] = [];
+      if(taskListId !== state.taskListId) return;
 
       list.forEach(task => {
         state.map[task.id] = task;
         state.list.push(task.id);
-        state.listOfCompletedTaskByTaskListId[taskListId].push(task.id);
       })
     })
 
@@ -58,37 +77,19 @@ export const taskSlice = createSlice({
       const { data, taskListId } = action.payload;
       state.map[data.id] = data;
       state.list.push(data.id);
-      state.listByTaskListId[taskListId].push(data.id)
     })
 
     builder.addCase(editTask.fulfilled, (state, action) => {
       const { data: task, taskListId } = action.payload;
       state.map[task.id] = task;
-
-
-      if(task.isComplete) {
-        const indexOfDelete = state.listByTaskListId[taskListId].findIndex(id => task.id === id);
-        if(indexOfDelete === -1) return;
-        state.listByTaskListId[taskListId].splice(indexOfDelete, 1);
-        state.listOfCompletedTaskByTaskListId[taskListId].push(task.id);
-      }else {
-        const indexOfDelete = state.listOfCompletedTaskByTaskListId[taskListId].findIndex(id => task.id === id);
-        if(indexOfDelete === -1) return;
-        state.listOfCompletedTaskByTaskListId[taskListId].splice(indexOfDelete, 1);
-        state.listByTaskListId[taskListId].push(task.id);
-      }
     })
 
     builder.addCase(removeOneTask.fulfilled, (state, action) => {
       const { taskListId, taskId } = action.payload;
-      const indexOfDelete = state.listByTaskListId[taskListId].findIndex(id => id === taskId);
-      state.listByTaskListId[taskListId].splice(indexOfDelete, 1);
     })
 
     builder.addCase(removeTask.fulfilled, (state, action) => {
       const { taskListId, taskId } = action.payload;
-      const indexOfDelete = state.listByTaskListId[taskListId].findIndex(id => id === taskId);
-      state.listByTaskListId[taskListId].splice(indexOfDelete, 1);
 
       //todo
     })

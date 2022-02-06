@@ -1,32 +1,13 @@
 @import '/src/theme.scss'; 
 
-.assideBar_itemGroup {
-  width: 230px;
-  margin-top: 30px;
-}
-
-.assideBar_item {
-  cursor: pointer;
-  display: flex;
-  height: 30px;
-  justify-content: space-between;
-  background-color: $notSelectColor;
-  border-radius: 3px;
-  transition: background-color 0.25s;
-  &:hover{
-    background-color: $selectColor;
-  }
-}
-
-.selected {
-  background-color: $selectColor;
-}
-
-.assideBar_groupHead {
-  display: flex;
-  cursor: pointer;
-  height: 30px;
-  justify-content: space-between;
+.assideBar {
+  padding-left: 30px;
+  width: 240px;
+  height: 100%;
+  position: fixed;
+  &:hover {
+    overflow-y: scroll;
+	}
 }
 
 .assideBas_headLabel {
@@ -34,89 +15,5 @@
   font-weight: 700;
 }
 
-.asideBar_itemIcon {
-  cursor: pointer;
-  display: inline-block;
-  margin-right: 10px;
-  color: $iconColor;
-}
 
-.icon_x-small {
-  margin: 0 13px 0 4px;
-  font-size: x-small;
-}
-
-.icon_x-large {
-  font-size: x-large;
-}
-
-.editTask_textFieldBox {
-  padding-bottom: 10px;
-  margin: 5px 0;
-  border: 1px solid $borderColor;
-  border-radius: 5px;
-  font-size: larger;
-  font-weight: 700;
-}
-
-.createTaskList_box {
-  width: 300px;
-  height: 300px;
-  padding: 100px 50px;
-  margin: 100px auto;
-  border-radius: 10px;
-  background-color: white;
-}
-
-.createTaskList_form {
-  height: 100%;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-}
-
-.settingTaskList_modal {
-  position: fixed;
-  z-index: 999999;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0);
-}
-
-.settingTaskList_box {
-  position: fixed;
-  width: 250px;
-  height: 300px;
-  padding: 10px;
-  margin: 100px auto;
-  border: 1px solid $borderColor;
-  border-radius: 10px;
-  background-color: white;
-  font-size: small;
-}
-
-.asideSettingTaskList_boxPosition {
-  left: 148px;
-  top: 54px;
-}
-
-.settingTaskList_boxPosition {
-  left: 1200px;
-  top: 15px;
-}
-
-.settingTaskList_item {
-  padding-left: 10px;
-  cursor: pointer;
-  display: flex;
-  height: 30px;
-  justify-content: space-between;
-  background-color: $notSelectColor;
-  border-radius: 3px;
-  transition: background-color 0.25s;
-  &:hover{
-    background-color: $selectColor;
-  }
-}
 

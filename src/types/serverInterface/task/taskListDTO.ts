@@ -1,6 +1,7 @@
 export type TaskListDTO = {
   id: number;
   caption: string;
+  isFavorite: boolean;
 }
 
 export type CreateTaskListDTO = {
@@ -9,4 +10,5 @@ export type CreateTaskListDTO = {
 
 export type EditTaskListDTO = {
   caption: string;
+  isFavorite: boolean;
 }

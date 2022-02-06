@@ -31,13 +31,13 @@ export const taskListSlice = createSlice({
     builder.addCase(createTaskList.fulfilled, (state, action) => {
       const taskList = action.payload;
     
-      state.map[taskList.id] = {id: taskList.id, caption: taskList.caption};
+      state.map[taskList.id] = taskList;
       state.list.push(taskList.id);
     })
 
     builder.addCase(editTaskList.fulfilled, (state, action) => {
       const taskList = action.payload;
-      state.map[taskList.id] = {id: taskList.id, caption: taskList.caption};
+      state.map[taskList.id] = taskList;
     })
 
     builder.addCase(removeTaskList.fulfilled, (state, action) => {

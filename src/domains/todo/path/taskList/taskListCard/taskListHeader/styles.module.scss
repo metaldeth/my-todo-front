@@ -1,0 +1,15 @@
+@import '/src/theme.scss'; 
+
+.taskListCard_header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.taskListCard_label {
+  font-size: larger;
+  font-weight: 700;
+}
+
+.taskListCard_buttonGroup {
+  display: flex;
+}

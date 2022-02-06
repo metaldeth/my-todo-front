@@ -1,0 +1,13 @@
+@import '/src/theme.scss'; 
+
+.assideBar_itemGroup {
+  width: 230px;
+  margin-top: 30px;
+}
+
+.assideBar_groupHead {
+  display: flex;
+  cursor: pointer;
+  height: 30px;
+  justify-content: space-between;
+}

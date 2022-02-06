@@ -1,24 +1,19 @@
-import { FC, useEffect, useState } from "react";
+import { FC, memo, useEffect, useState } from "react";
 import { Navigation } from "./navigation";
 import css from './styles.module.scss';
 import classNames from 'classnames';
-import { TestDriveIcons } from "../../testDrive/testDriveIcons";
 import { useAppDispatch } from "../../../app/hooks";
 import { fetchListOfTaskList } from "../state/taskList";
 import { Loader } from "../../../components/loader";
-import { AsideSettingTaskList, CreateTaskList, ListOfTaskList, SettingTaskList } from "./taskList";
-import { TaskContainer } from "./task";
-import { SettingTask } from "./task/settingTask";
-import { Modal } from "./modal";
+import { Asside } from './taskList'
+import { TaskListCard } from "./taskList/taskListCard";
+import { Route, Routes } from "react-router";
 
-export const ToDo: FC<{}> = () => {
+export const ToDo = memo(() => {
   const dispatch = useAppDispatch();
 
   const [ isLoaded, setIsLoaded ] = useState(false);
-  const [ isLoadedTask, setIsLoadedTask ] = useState(false);
   const [ isOpenAside, setIsOpenAside ] = useState(true);
-  const [ selectedTaskListId, setSelectedTaskListId ] = useState<number | null>(null);
-
 
   useEffect(() => {
     dispatch(fetchListOfTaskList())
@@ -30,32 +25,16 @@ export const ToDo: FC<{}> = () => {
   return(
     <>
       <Navigation
-        isOpenAside={isOpenAside}
-        setIsOpenAside={setIsOpenAside}
-        setSelectedTaskListId={setSelectedTaskListId}
+        onOpenAside={() => setIsOpenAside(!isOpenAside)}
       />
       {isOpenAside &&
-        <aside className={classNames(css.assideBar)}>
-          <ListOfTaskList
-            selectedTaskListId={selectedTaskListId}
-            setSelectedTaskListId={setSelectedTaskListId}
-            setIsLoadedTask={setIsLoadedTask}
-          />
-        </aside> 
+        <Asside/>
       }
       <div className={classNames(isOpenAside && css.contentBox)}>
-        {selectedTaskListId 
-          ? <TaskContainer
-              selectedTaskListId={selectedTaskListId}
-              isLoadedTask={isLoadedTask}
-              setIsLoadedTask={setIsLoadedTask}
-              setIsLoaded={setIsLoaded}
-              setSelectedTaskListId={setSelectedTaskListId}
-            />
-          : null
-        }
-        {/* <TestDriveIcons/> */}
+        <Routes>
+          <Route path='/taskList/:taskListId/*' element={<TaskListCard/>}/>
+        </Routes>
       </div>
     </>
   )
-}
+})
