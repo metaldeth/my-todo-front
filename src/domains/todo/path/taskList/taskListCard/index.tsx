@@ -5,11 +5,11 @@ import { Modal } from "../../../../../components/modal";
 import { selectTaskListById } from "../../../state/taskList";
 import { TaskContainer } from "../../task";
 import { SettingTaskList } from "../settingTaskList";
-import { RouteTaskListParam } from "../types";
+import { RouteTaskListParam } from "../../../../../types/routeTypes/types";
 import css from './styles.module.scss'
 import { TaskListHeader } from "./taskListHeader";
 
-export const TaskListCard = memo<{}>(() => {
+export const TaskListCard = memo(() => {
   const { taskListId } = useParams<RouteTaskListParam>();
   const convertedId = Number(taskListId);
 

@@ -1,18 +1,16 @@
-import { FC, memo, useState } from "react";
+import { memo, useState } from "react";
 import { useAppSelector } from "../../../../../app/hooks";
 import { selectListOfTaskByTaskListId } from "../../../state/task";
 import { TaskItem } from "./taskItem";
 import css from './styles.module.scss';
-import {
-  AiOutlinePlus
-} from 'react-icons/ai'
+import {AiOutlinePlus} from 'react-icons/ai'
 import { CreateTask } from "../createTask";
 
 export type ListOfTaskPropsType = {
   selectedTaskListId: number;
 }
 
-export const ListOfTask: FC<ListOfTaskPropsType> = memo(({
+export const ListOfTask = memo<ListOfTaskPropsType>(({
   selectedTaskListId,
 }) => {
   const [ isOpenCreate, setIsOpenCreate ] = useState(false);
@@ -27,12 +25,14 @@ export const ListOfTask: FC<ListOfTaskPropsType> = memo(({
           selectedTaskListId={selectedTaskListId}
         />)
       }
-      { isOpenCreate 
-        ?<CreateTask
+      { isOpenCreate &&
+        <CreateTask
           selectedTaskListId={selectedTaskListId}
           onCloseCreate={() => setIsOpenCreate(false)}
         />
-        :<div className={css.createTask} onClick={() => setIsOpenCreate(true)}>
+      }
+      { !isOpenCreate &&
+        <div className={css.createTask} onClick={() => setIsOpenCreate(true)}>
           <div className={css.createTask_button}>
             <AiOutlinePlus/> Добавить задачу
           </div>

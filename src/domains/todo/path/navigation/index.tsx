@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { memo } from "react";
 import { 
   AiOutlineBars,
   AiOutlineHome,
@@ -12,7 +12,7 @@ export type NavigationPropsType = {
   onOpenAside: VoidFunction;
 }
 
-export const Navigation: FC<NavigationPropsType> = ({ 
+export const Navigation = memo<NavigationPropsType>(({ 
   onOpenAside, 
 }) => {
   const navigate = useNavigate();
@@ -39,4 +39,4 @@ export const Navigation: FC<NavigationPropsType> = ({
       </div>
     </AppBar>
   )
-}
+})

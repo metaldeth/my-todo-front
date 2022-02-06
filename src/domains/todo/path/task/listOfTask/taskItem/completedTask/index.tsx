@@ -1,17 +1,20 @@
-import classNames from "classnames";
-import { FC, useState } from "react";
+import { memo, useState } from "react";
 import { useAppDispatch } from "../../../../../../../app/hooks";
 import { BsCircle, BsCheckCircle } from "react-icons/bs";
-import css from './styles.module.scss'
 import { editTask } from "../../../../../state/task";
 import { TaskDTO } from "../../../../../../../types/serverInterface/task/taskDTO";
+import css from './styles.module.scss'
+import classNames from "classnames";
 
 export type CompletedTaskPropsType = {
   task: TaskDTO;
   selectedTaskListId: number;
 }
 
-export const CompletedTask: FC<CompletedTaskPropsType> =  ({ task, selectedTaskListId }) => {
+export const CompletedTask =  memo<CompletedTaskPropsType>(({ 
+  task,
+  selectedTaskListId,
+}) => {
   const [ isHoverCheckBox, setIsHoverCheckBox ] = useState(task.isComplete);
 
   const dispatch = useAppDispatch();
@@ -21,7 +24,11 @@ export const CompletedTask: FC<CompletedTaskPropsType> =  ({ task, selectedTaskL
       ...task,
       isComplete: isHoverCheckBox
     }
-    dispatch(editTask({ data: updatedTask, taskId: task.id, taskListId: selectedTaskListId }))
+    dispatch(editTask({ 
+      data: updatedTask, 
+      taskId: task.id, 
+      taskListId: selectedTaskListId 
+    }))
   }
 
   return(
@@ -34,4 +41,4 @@ export const CompletedTask: FC<CompletedTaskPropsType> =  ({ task, selectedTaskL
       {isHoverCheckBox ? <BsCheckCircle/> : <BsCircle/>}
     </div>
   )
-}
+})

@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import { FC } from "react";
+import { FC, memo } from "react";
 import { AiOutlineDelete } from "react-icons/ai";
 import { useAppDispatch } from "../../../../../../app/hooks";
 import { removeTaskList } from "../../../../state/taskList";
@@ -11,9 +11,9 @@ export type AsideSettingTaskListPropsType = {
   onClose: VoidFunction;
 }
 
-export const AsideSettingTaskList: FC<AsideSettingTaskListPropsType> = ({ 
-  onSelectTaskListId,
+export const AsideSettingTaskList = memo<AsideSettingTaskListPropsType>(({ 
   selectedTaskListId,
+  onSelectTaskListId,
   onClose
 }) => {
   const dispatch = useAppDispatch();
@@ -46,4 +46,4 @@ export const AsideSettingTaskList: FC<AsideSettingTaskListPropsType> = ({
       </div>
     </div>
   )
-}
+})

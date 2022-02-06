@@ -1,4 +1,4 @@
-import { FC, memo, useState } from "react";
+import { memo, useState } from "react";
 import { TaskDTO } from "../../../../../../types/serverInterface/task/taskDTO";
 import { BsChatText } from "react-icons/bs";
 import { AiOutlineEdit, AiOutlineEllipsis } from "react-icons/ai";
@@ -10,31 +10,36 @@ import { CompletedTask } from "./completedTask";
 import { Modal } from "../../../../../../components/modal";
 import { SettingTask } from "../../settingTask";
 import { TaskModal } from "../../taskModal";
+import { Route, Routes, useNavigate } from "react-router";
 
 export type TaskItemPropsType = {
   task: TaskDTO,
   selectedTaskListId: number;
 }
 
-export const TaskItem: FC<TaskItemPropsType> = memo(({ 
+export const TaskItem = memo<TaskItemPropsType>(({ 
   task,
   selectedTaskListId,
  }) => {
   const [ isHoverItem, setIsHoverItem ] = useState(false);
   const [ isOpenSetting, setIsOpenSetting ] = useState(false);
   const [ isEdit, setIsEdit ] = useState(false);
-  const [ isOpenTaskModal, setIsOpenTaskModal ] = useState(false);
+
+  const navigate = useNavigate();
+
+  const onOpenTaskModal = () => navigate(`/taskList/:${selectedTaskListId}/task/${task.id}`);
 
   return(
     <div 
-      className={classNames(css.taskItem)}
+      className={css.taskItem}
       onMouseEnter={() => setIsHoverItem(true)}
       onMouseLeave={() => setIsHoverItem(false)}  
     >
       {isEdit && 
         <EditTask task={task} onCLoseEdit={() => setIsEdit(false)} selectedTaskListId={selectedTaskListId}/>
       }
-      {!isEdit && //TODO: попробовать улучшить прозрачность кода
+      {/* TODO: попробовать улучшить прозрачность кода */}
+      {!isEdit && 
         <>
           <div className={css.taskItem_content}>
             <CompletedTask
@@ -55,7 +60,7 @@ export const TaskItem: FC<TaskItemPropsType> = memo(({
                   <AiOutlineEdit/>
                 </IconButton>
                 <IconButton
-                  onClick={() => setIsOpenTaskModal(true)}
+                  onClick={() => onOpenTaskModal()}
                 >
                   <BsChatText/>
                 </IconButton>
@@ -72,7 +77,6 @@ export const TaskItem: FC<TaskItemPropsType> = memo(({
       
       <Modal
         isOpen={isOpenSetting}
-        onClose={() => {}}
       >
         <SettingTask
           selectedTaskListId={selectedTaskListId}
@@ -80,15 +84,16 @@ export const TaskItem: FC<TaskItemPropsType> = memo(({
           taskId={task.id}
         />
       </Modal>
-      <Modal
-        isOpen={isOpenTaskModal}
-        onClose={() => {}}
-      >
-        <TaskModal
-          task={task}
-          onCLoseModal={() => setIsOpenTaskModal(false)}
-        />
-      </Modal>
+      
+      <Routes>
+        <Route path='/taskList/:taskListId/task/:taskId' element={
+          <Modal
+            isOpen={true}
+          >
+            <TaskModal/>
+          </Modal>
+        }/>
+      </Routes>
     </div>
   )
 })

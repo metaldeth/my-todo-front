@@ -1,5 +1,5 @@
 import { useFormik } from "formik";
-import { FC } from "react";
+import { memo } from "react";
 import { useAppDispatch } from "../../../../app/hooks";
 import { Button } from "../../../../components/button";
 import { TextField } from "../../../../components/textField";
@@ -10,16 +10,16 @@ import { createCommentValidationScheme } from "./validationScheme";
 
 export type CreteCommentPropsType = {
   taskId: number;
-  setIsOpenCreate: React.Dispatch<React.SetStateAction<boolean>>;
+  onCLoseCreate: VoidFunction;
 }
 
 const initialValues: CreateCommentDTO = {
   caption: '',
 }
 
-export const CreateComment: FC<CreteCommentPropsType> = ({
+export const CreateComment = memo<CreteCommentPropsType>(({
   taskId,
-  setIsOpenCreate,
+  onCLoseCreate,
 }) => {
   const dispatch = useAppDispatch();
 
@@ -27,11 +27,9 @@ export const CreateComment: FC<CreteCommentPropsType> = ({
     validationSchema: createCommentValidationScheme,
     initialValues,
     onSubmit: (values, formikHelpers) => {
-      return dispatch(createComment({data: values, taskId })).then(() => {
-        setIsOpenCreate(false)
-      }, () => {
-        formikHelpers.setSubmitting(false);
-      })
+      return dispatch(createComment({data: values, taskId }))
+        .then(() => onCLoseCreate()) 
+        .catch(() => formikHelpers.setSubmitting(false))
     }
   })
 
@@ -40,7 +38,6 @@ export const CreateComment: FC<CreteCommentPropsType> = ({
       <div className={css.createTask_textFieldBox}>
         <TextField
           isDisabled={false}
-          // label='название'
           name='caption'
           placeholder='Комментарий'
           onNativeChange={formik.handleChange}
@@ -54,11 +51,11 @@ export const CreateComment: FC<CreteCommentPropsType> = ({
           color="button_primary"
         />
         <Button
-          onClick={() => setIsOpenCreate(false)}
+          onClick={() => onCLoseCreate()}
           label='Отмена'
           color="button_secondary"
         />
       </div>
     </form>
   )
-}
+})

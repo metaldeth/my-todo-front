@@ -16,6 +16,8 @@ export type SettingTaskListPropsType = {
   onCloseEditTaskList: VoidFunction;
 }
 
+//TODO: Слишком много пропсов
+
 export const SettingTaskList: FC<SettingTaskListPropsType> = ({ 
   selectedTaskListId,
   isShowCompletedTask,

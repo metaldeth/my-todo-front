@@ -6,12 +6,10 @@ import { selectListOfTaskList } from "../../state/taskList";
 import { Modal } from "../../../../components/modal";
 import { CreateTaskList } from "./createTaskList";
 import css from './styles.module.scss'
-import { ViewList } from "./viewList/viewList";
-import { Route, Routes, useParams } from "react-router";
-import { RouteTaskListParam } from "./types";
+import { Route, Routes } from "react-router";
 import { ViewListContainer, ViewListContainerBySelectTaskList } from "./viewList";
 
-export const Asside = memo<{}>(() => {
+export const Asside = memo(() => {
   const [ isCreateTaskList, setIsCreateTaskList ] = useState(false);
 
   const listOfTaskList = useAppSelector(selectListOfTaskList);
@@ -19,6 +17,7 @@ export const Asside = memo<{}>(() => {
     () => listOfTaskList.filter(taskList => taskList.isFavorite),
     [listOfTaskList]
   )
+  
   return(
     <aside className={css.assideBar}>
       <Routes>

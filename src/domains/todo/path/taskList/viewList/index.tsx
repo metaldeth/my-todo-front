@@ -1,7 +1,7 @@
 import { memo } from "react";
 import { useParams } from "react-router";
 import { TaskListDTO } from "../../../../../types/serverInterface/task/taskListDTO";
-import { RouteTaskListParam } from "../types";
+import { RouteTaskListParam } from "../../../../../types/routeTypes/types";
 import { ViewList } from "./viewList";
 
 export type ViewListContainerPropsType = {
@@ -12,14 +12,12 @@ export type ViewListContainerPropsType = {
 export const ViewListContainer = memo<ViewListContainerPropsType>(({ 
   caption,
   list
-}) => {
-  return(
-    <ViewList
-      caption={caption}
-      list={list}
-    />
-  )
-})
+}) => 
+  <ViewList
+    caption={caption}
+    list={list}
+  />
+)
 
 export const ViewListContainerBySelectTaskList = memo<ViewListContainerPropsType>(({ 
   caption,

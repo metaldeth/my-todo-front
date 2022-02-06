@@ -1,4 +1,4 @@
-import { FC, memo, useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import { useAppDispatch } from "../../../../app/hooks";
 import { Loader } from "../../../../components/loader";
 import { fetchListOfTaskByTaskListId } from "../../state/task";
@@ -10,7 +10,7 @@ export type TaskContainerPropsType = {
   isShowCompletedTask: boolean;
 }
 
-export const TaskContainer: FC<TaskContainerPropsType> = memo(({ 
+export const TaskContainer = memo<TaskContainerPropsType>(({ 
   selectedTaskListId, 
   isShowCompletedTask,
 }) => {

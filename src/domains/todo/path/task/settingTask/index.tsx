@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { memo } from "react";
 import css from './styles.module.scss';
 import { useAppDispatch } from "../../../../../app/hooks";
 import { AiOutlineDelete, AiOutlineEdit } from "react-icons/ai";
@@ -6,15 +6,15 @@ import classNames from "classnames";
 import { removeOneTask, removeTask } from "../../../state/task";
 
 export type SettingTaskPropsType = {
-  onCloseSetting: VoidFunction;
   selectedTaskListId: number;
   taskId: number;
+  onCloseSetting: VoidFunction;
 }
 
-export const SettingTask: FC<SettingTaskPropsType> = ({ 
-  onCloseSetting,
+export const SettingTask = memo<SettingTaskPropsType>(({ 
   selectedTaskListId,
   taskId,
+  onCloseSetting,
 }) => {
   const dispatch = useAppDispatch();
 
@@ -23,7 +23,7 @@ export const SettingTask: FC<SettingTaskPropsType> = ({
     onCloseSetting();
     dispatch(removeOneTask({taskListId: selectedTaskListId, taskId }))
       .then(() => {
-        // setIsLoaded(false);
+        // setIsLoaded(false);TODO:что тут разместить?
       });
   };
 
@@ -32,7 +32,7 @@ export const SettingTask: FC<SettingTaskPropsType> = ({
     onCloseSetting();
     dispatch(removeTask({taskListId: selectedTaskListId, taskId}))
       .then(() => {
-        // setIsLoaded(false);
+        // setIsLoaded(false);TODO:что тут разместить?
       });
   };
 
@@ -63,4 +63,4 @@ export const SettingTask: FC<SettingTaskPropsType> = ({
       </div>
     </div>
   )
-}
+})

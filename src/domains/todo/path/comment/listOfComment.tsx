@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { memo, useState } from "react";
 import { AiOutlinePlus } from "react-icons/ai";
 import { useAppSelector } from "../../../../app/hooks";
 import { selectListOfCommentByTaksId } from "../../state/comment";
@@ -10,7 +10,7 @@ export type ListOfCommentPropsType = {
   taskId: number;
 }
 
-export const ListOfComment: FC<ListOfCommentPropsType> = ({
+export const ListOfComment = memo<ListOfCommentPropsType>(({
   taskId,
 }) => {
   const [ isOpenCreate, setIsOpenCreate ] = useState(false);
@@ -26,12 +26,14 @@ export const ListOfComment: FC<ListOfCommentPropsType> = ({
           taskId={taskId}
         />
       )}
-       { isOpenCreate 
-        ?<CreateComment
-          setIsOpenCreate={setIsOpenCreate}
+      { isOpenCreate &&
+        <CreateComment
+          onCLoseCreate={() => setIsOpenCreate(false)}
           taskId={taskId}
         />
-        :<div className={css.createComment} onClick={() => setIsOpenCreate(true)}>
+      }
+      { !isOpenCreate && 
+        <div className={css.createComment} onClick={() => setIsOpenCreate(true)}>
           <div className={css.createComment_button}>
             <AiOutlinePlus/> Комментировать
           </div>
@@ -39,4 +41,4 @@ export const ListOfComment: FC<ListOfCommentPropsType> = ({
       }
     </div>
   )
-}
+})

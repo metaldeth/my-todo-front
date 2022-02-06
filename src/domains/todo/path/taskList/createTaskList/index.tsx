@@ -1,5 +1,5 @@
 import { useFormik } from "formik";
-import { FC } from "react";
+import { FC, memo } from "react";
 import { useAppDispatch } from "../../../../../app/hooks";
 import { Button } from "../../../../../components/button";
 import { TextField } from "../../../../../components/textField";
@@ -15,18 +15,16 @@ const initialValues = {
   caption: '',
 }
 
-export const CreateTaskList: FC<CreateTaskListPropsType> = ({ setIsCreateTaskList }) => {
+export const CreateTaskList = memo<CreateTaskListPropsType>(({ setIsCreateTaskList }) => {
   const dispatch = useAppDispatch();
 
   const formik = useFormik({
     validationSchema: createTaskListValidationScheme,
     initialValues,
     onSubmit: (values, formikHelpers) => {
-      return dispatch(createTaskList( values )).then(() => {
-        setIsCreateTaskList(false)
-      }, () => {
-        formikHelpers.setSubmitting(false);
-      })
+      return dispatch(createTaskList( values ))
+        .then(() => setIsCreateTaskList(false))
+        .catch(() => formikHelpers.setSubmitting(false))
     }
   })
 
@@ -37,7 +35,6 @@ export const CreateTaskList: FC<CreateTaskListPropsType> = ({ setIsCreateTaskLis
         <div className={css.editTask_textFieldBox}>
           <TextField
             isDisabled={false}
-            // label='название'
             name='caption'
             placeholder='Задача'
             onNativeChange={formik.handleChange}
@@ -59,4 +56,4 @@ export const CreateTaskList: FC<CreateTaskListPropsType> = ({ setIsCreateTaskLis
       </form>
     </div>
   )
-}
+})

@@ -6,9 +6,13 @@ export type AsideHeaderPropsType = {
   caption: string;
   isOpenTaskList: boolean;
   onOpenTaskList: VoidFunction;
-}
+} 
 
-export const AsideHeader = memo<AsideHeaderPropsType>(({ caption, onOpenTaskList, isOpenTaskList }) => (
+export const AsideHeader = memo<AsideHeaderPropsType>(({ 
+  caption, 
+  isOpenTaskList, 
+  onOpenTaskList 
+}) => (
   <div onClick={onOpenTaskList}>
     <div className={css.asideBar_itemIcon}>
       {isOpenTaskList ? <AiOutlineDown/> : <AiOutlineRight/>}

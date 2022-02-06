@@ -1,4 +1,4 @@
-import { FC, memo, useState } from "react";
+import { memo, useState } from "react";
 import css from './styles.module.scss';
 import classNames from 'classnames';
 import { TaskListDTO } from "../../../../../../types/serverInterface/task/taskListDTO";
@@ -10,20 +10,18 @@ import { AsideSettingTaskList } from "../asideSettingTaskList";
 
 export type TaskListItemPropsType = {
   taskList: TaskListDTO;
-  onSelectTaskListId: (taskListId:  number | null) => void;
   isSelect: boolean;
+  onSelectTaskListId: (taskListId:  number | null) => void;
 }
 
 export const TaskListItem = memo<TaskListItemPropsType>(({ 
   taskList,
-  onSelectTaskListId,
   isSelect,
+  onSelectTaskListId,
 }) => {
   const [ isAsideSettingTaskList, setIsAsideSettingTaskList ] = useState(false);
 
-  const handleChange = () => {
-    onSelectTaskListId(taskList.id);
-  }
+  const handleChange = () => onSelectTaskListId(taskList.id);
 
   return(
     <div 

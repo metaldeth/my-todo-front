@@ -25,11 +25,9 @@ export const ViewList = memo<ListOfTaskListPropsType>(({
     navigate(`/taskList/${taskListId}`);
   }
 
-
-
   return(
-    <div className={classNames(css.assideBar_itemGroup)}>
-      <div className={classNames(css.assideBar_groupHead)}>
+    <div className={css.assideBar_itemGroup}>
+      <div className={css.assideBar_groupHead}>
         <AsideHeader
           caption={caption}
           isOpenTaskList={isOpenTaskList}

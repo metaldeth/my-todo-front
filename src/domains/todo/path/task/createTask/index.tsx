@@ -1,5 +1,5 @@
 import { useFormik } from "formik";
-import { FC } from "react";
+import { memo } from "react";
 import { useAppDispatch } from "../../../../../app/hooks";
 import { Button } from "../../../../../components/button";
 import { TextField } from "../../../../../components/textField";
@@ -18,18 +18,19 @@ export type CreateTaskPropsType = {
   onCloseCreate: VoidFunction;
 }
 
-export const CreateTask: FC<CreateTaskPropsType> = ({ selectedTaskListId, onCloseCreate }) => {
+export const CreateTask = memo<CreateTaskPropsType>(({ 
+  selectedTaskListId, 
+  onCloseCreate 
+}) => {
   const dispatch = useAppDispatch();
 
   const formik = useFormik({
     validationSchema: createTaskValidationScheme,
     initialValues,
     onSubmit: (values, formikHelpers) => {
-      return dispatch(createTask({data: values, taskListId: selectedTaskListId })).then(() => {
-        onCloseCreate()
-      }, () => {
-        formikHelpers.setSubmitting(false);
-      })
+      return dispatch(createTask({data: values, taskListId: selectedTaskListId }))
+        .then(() => onCloseCreate()) 
+        .catch(() => formikHelpers.setSubmitting(false))
     }
   })
 
@@ -65,4 +66,4 @@ export const CreateTask: FC<CreateTaskPropsType> = ({ selectedTaskListId, onClos
       </div>
     </form>
   )
-}
+})

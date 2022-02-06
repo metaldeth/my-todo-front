@@ -1,4 +1,4 @@
-import { FC, memo, useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import { Navigation } from "./navigation";
 import css from './styles.module.scss';
 import classNames from 'classnames';
@@ -9,7 +9,7 @@ import { Asside } from './taskList'
 import { TaskListCard } from "./taskList/taskListCard";
 import { Route, Routes } from "react-router";
 
-export const ToDo = memo(() => {
+export const ToDo = memo(() => { 
   const dispatch = useAppDispatch();
 
   const [ isLoaded, setIsLoaded ] = useState(false);

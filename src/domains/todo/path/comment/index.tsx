@@ -1,15 +1,14 @@
-import { FC, useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import { useAppDispatch } from "../../../../app/hooks";
 import { Loader } from "../../../../components/loader";
 import { fetchListOfCommentByTaskId } from "../../state/comment";
 import { ListOfComment } from "./listOfComment";
-import css from './styles.module.scss';
 
 export type CommentContainerPropsType = {
   taskId: number;
 }
 
-export const CommentContainer: FC<CommentContainerPropsType> = ({
+export const CommentContainer = memo<CommentContainerPropsType>(({
   taskId,
 }) => {
   const [ isLoaded, setIsLoaded ] = useState(false);
@@ -30,4 +29,4 @@ export const CommentContainer: FC<CommentContainerPropsType> = ({
       />
     </>
   )
-}
+})

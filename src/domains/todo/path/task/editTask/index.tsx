@@ -1,5 +1,5 @@
 import { useFormik } from "formik";
-import { FC } from "react";
+import { memo } from "react";
 import { useAppDispatch } from "../../../../../app/hooks";
 import { TextField } from "../../../../../components/textField";
 import { EditTaskDTO, TaskDTO } from "../../../../../types/serverInterface/task/taskDTO";
@@ -14,7 +14,11 @@ export type EditTaskPropsType = {
   onCLoseEdit: VoidFunction;
 }
 
-export const EditTask: FC<EditTaskPropsType> = ({ task, onCLoseEdit, selectedTaskListId }) => {
+export const EditTask = memo<EditTaskPropsType>(({ 
+  task, 
+  selectedTaskListId,
+  onCLoseEdit, 
+}) => {
   const dispatch = useAppDispatch();
 
   const initialValues: EditTaskDTO = {
@@ -27,11 +31,9 @@ export const EditTask: FC<EditTaskPropsType> = ({ task, onCLoseEdit, selectedTas
     validationSchema: editTaskValidationScheme,
     initialValues,
     onSubmit: (values, formikHelpers) => {
-      return dispatch(editTask({data: values, taskId: task.id, taskListId: selectedTaskListId })).then(() => {
-        onCLoseEdit()
-      }, () => {
-        formikHelpers.setSubmitting(false);
-      })
+      return dispatch(editTask({data: values, taskId: task.id, taskListId: selectedTaskListId }))
+        .then(() => onCLoseEdit())
+        .catch(() => formikHelpers.setSubmitting(false))
     }
   })
   return(
@@ -39,7 +41,6 @@ export const EditTask: FC<EditTaskPropsType> = ({ task, onCLoseEdit, selectedTas
       <div className={css.editTask_textFieldBox}>
         <TextField
           isDisabled={false}
-          // label='название'
           name='caption'
           placeholder='Задача'
           onNativeChange={formik.handleChange}
@@ -47,7 +48,6 @@ export const EditTask: FC<EditTaskPropsType> = ({ task, onCLoseEdit, selectedTas
         />
         <TextField
           isDisabled={false}
-          // label='description'
           name='description'
           placeholder='Описание'
           onNativeChange={formik.handleChange}
@@ -68,4 +68,4 @@ export const EditTask: FC<EditTaskPropsType> = ({ task, onCLoseEdit, selectedTas
       </div>
     </form>
   )
-}
+})

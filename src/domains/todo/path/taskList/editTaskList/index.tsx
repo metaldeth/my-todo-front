@@ -12,7 +12,7 @@ export type EditTaskListPropsType = {
   onCloseEdit: VoidFunction;
 }
 
-export const EditTaskList: FC<EditTaskListPropsType> = memo(({ selectedTaskListId, onCloseEdit }) => {
+export const EditTaskList = memo<EditTaskListPropsType>(({ selectedTaskListId, onCloseEdit }) => {
   const dispatch = useAppDispatch();
 
   const taskList = useAppSelector(selectTaskListById(selectedTaskListId));
@@ -26,11 +26,9 @@ export const EditTaskList: FC<EditTaskListPropsType> = memo(({ selectedTaskListI
     validationSchema: editTaskListValidationScheme,
     initialValues,
     onSubmit: (values, formikHelpers) => {
-      return dispatch(editTaskList({ data: values, taskListid: selectedTaskListId })).then(() => {
-        onCloseEdit()
-      }, () => {
-        formikHelpers.setSubmitting(false);
-      })
+      return dispatch(editTaskList({ data: values, taskListid: selectedTaskListId }))
+      .then(() => onCloseEdit())
+      .catch(() => formikHelpers.setSubmitting(false))
     }
   })
 
@@ -39,7 +37,6 @@ export const EditTaskList: FC<EditTaskListPropsType> = memo(({ selectedTaskListI
       <div className={css.editTask_textFieldBox}>
         <TextField
           isDisabled={false}
-          // label='название'
           name='caption'
           placeholder='Задача'
           onNativeChange={formik.handleChange}
