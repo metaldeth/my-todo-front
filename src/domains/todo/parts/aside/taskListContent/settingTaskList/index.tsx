@@ -1,45 +1,42 @@
 import { FC } from "react";
 import css from './styles.module.scss';
-import { useAppDispatch } from "../../../../../app/hooks";
-import { removeTaskList } from "../../../state/taskList";
+import { useAppDispatch } from "../../../../../../app/hooks";
+import { removeTaskList } from "../../../../state/taskList";
 import { AiOutlineDelete, AiOutlineEdit } from "react-icons/ai";
 import { BsCheckCircle, BsCircle } from "react-icons/bs";
 import classNames from "classnames";
+import { useNavigate } from "react-router";
 
 export type SettingTaskListPropsType = {
   isShowCompletedTask: boolean;
   selectedTaskListId: number | null;
-  onClearSelectedTaskListId: VoidFunction;
-  onCloseSettingTaskList: VoidFunction;
-  onIsShowCompleteTask: VoidFunction;
-  onOpenEditTaskList: VoidFunction;
-  onCloseEditTaskList: VoidFunction;
+  onToggleCompleteTaskShow: VoidFunction;
+  onClose: VoidFunction;
+  onOpenEdit: VoidFunction;
 }
-
-//TODO: Слишком много пропсов
 
 export const SettingTaskList: FC<SettingTaskListPropsType> = ({ 
   selectedTaskListId,
   isShowCompletedTask,
-  onClearSelectedTaskListId,
-  onCloseSettingTaskList,
-  onCloseEditTaskList,
-  onOpenEditTaskList,
-  onIsShowCompleteTask,
+  onToggleCompleteTaskShow,
+  onClose,
+  onOpenEdit
 }) => {
   const dispatch = useAppDispatch();
 
+  const navigate = useNavigate();
+
   const remove = () => {
     if(!selectedTaskListId) return;
-    onCloseSettingTaskList();
+    onClose();
     dispatch(removeTaskList(selectedTaskListId))
       .then(() => {
-        onClearSelectedTaskListId();
+        navigate('/');
       });
   };
 
   return (
-    <div className={css.settingTaskList_modal} onClick={() => onCloseEditTaskList()}>
+    <div className={css.settingTaskList_modal} onClick={() => onClose()}>
       <div className={classNames(css.settingTaskList_box, css.settingTaskList_boxPosition)}>
         <div 
           className={css.settingTaskList_item} 
@@ -51,7 +48,7 @@ export const SettingTaskList: FC<SettingTaskListPropsType> = ({
         </div>
         <div 
           className={css.settingTaskList_item} 
-          onClick={() => onOpenEditTaskList()}
+          onClick={() => onOpenEdit()}
         >
           <div>
             <AiOutlineEdit/> Редактировать список
@@ -59,7 +56,7 @@ export const SettingTaskList: FC<SettingTaskListPropsType> = ({
         </div>
         <div 
           className={css.settingTaskList_item} 
-          onClick={() => onIsShowCompleteTask()}
+          onClick={onToggleCompleteTaskShow}
         >
           <div>
             {isShowCompletedTask 
@@ -68,7 +65,7 @@ export const SettingTaskList: FC<SettingTaskListPropsType> = ({
             }
           </div>
         </div>
-        <div className={css.settingTaskList_item}>
+        <div className={css.settingTaskList_item} onClick={onClose}>
           <div>
             Отмена
           </div>

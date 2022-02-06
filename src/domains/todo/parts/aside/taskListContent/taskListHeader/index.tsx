@@ -7,37 +7,33 @@ import { EditTaskList } from "../../editTaskList";
 import css from './styles.module.scss'
 
 export type TaskListHeaderPropsType = {
-  isOpenEditTaskList: boolean;
+  isOpenEdit: boolean;
   taskList: TaskListDTO;
 
-  onCloseEdit: VoidFunction;
-  onOpenEdit: VoidFunction;
-  onOpenSettingTaskList: VoidFunction
+  onOpenStatusEdit: (value: boolean) => void;
+  onOpenSetting: VoidFunction
 }
 
 export const TaskListHeader = memo<TaskListHeaderPropsType>(({
-  isOpenEditTaskList,
+  isOpenEdit,
   taskList,
 
-  onCloseEdit,
-  onOpenEdit,
-  onOpenSettingTaskList
+  onOpenStatusEdit,
+  onOpenSetting
 }) => {
   return(
     <header className={css.taskListCard_header}>
-        {isOpenEditTaskList 
-        ? (
+        {isOpenEdit &&
           <EditTaskList
-            onCloseEdit={onCloseEdit}
+            onCloseEdit={() => onOpenStatusEdit(false)}
             selectedTaskListId={taskList.id}
           />
-        )
-        : (
+        }
+        { !isOpenEdit && 
           <div 
             className={css.taskListCard_label} 
-            onClick={() => onOpenEdit()}
+            onClick={() => onOpenStatusEdit(true)}
           >{taskList.caption}</div>
-        )
         }
         <div className={css.taskListCard_buttonGroup}>
           <IconButton
@@ -47,7 +43,7 @@ export const TaskListHeader = memo<TaskListHeaderPropsType>(({
             <AiOutlineUsergroupAdd/>
           </IconButton>
           <IconButton
-            onClick={() => onOpenSettingTaskList()}
+            onClick={() => onOpenSetting()}
           >
             <BsGrid3X2Gap/>
           </IconButton>

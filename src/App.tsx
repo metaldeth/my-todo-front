@@ -6,7 +6,7 @@ import { Loader } from './components/loader';
 import { PrivateRouteGuard } from './domains/auth/components/AuthRoute';
 import { AuthModule } from './domains/auth/parts';
 import { fetchUserData } from './domains/auth/state';
-import { ToDo } from './domains/todo/path';
+import { ToDo } from './domains/todo';
 
 function App() {
   const dispatch = useAppDispatch();

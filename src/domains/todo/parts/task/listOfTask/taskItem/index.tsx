@@ -3,7 +3,6 @@ import { TaskDTO } from "../../../../../../types/serverInterface/task/taskDTO";
 import { BsChatText } from "react-icons/bs";
 import { AiOutlineEdit, AiOutlineEllipsis } from "react-icons/ai";
 import css from './styles.module.scss';
-import classNames from 'classnames';
 import { IconButton } from "../../../../../../components/appBar";
 import { EditTask } from "../../editTask";
 import { CompletedTask } from "./completedTask";
@@ -27,7 +26,7 @@ export const TaskItem = memo<TaskItemPropsType>(({
 
   const navigate = useNavigate();
 
-  const onOpenTaskModal = () => navigate(`/taskList/:${selectedTaskListId}/task/${task.id}`);
+  const onOpenTaskModal = () => navigate(`/taskList/${selectedTaskListId}/task/${task.id}`);
 
   return(
     <div 

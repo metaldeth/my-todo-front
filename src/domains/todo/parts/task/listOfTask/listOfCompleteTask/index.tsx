@@ -19,6 +19,7 @@ export const ListOfCompletedTaskContainer = memo<ListOfCompletedTaskContainerPro
     dispatch(fetchListOfCompletedTaskByTaskListId(selectedTaskListId))
       .then(() => setIsLoaded(true));
   }, [dispatch, selectedTaskListId]);
+  
 
   if(!isLoaded) return <Loader/>;
 

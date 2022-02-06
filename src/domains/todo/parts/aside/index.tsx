@@ -9,7 +9,7 @@ import css from './styles.module.scss'
 import { Route, Routes } from "react-router";
 import { ViewListContainer, ViewListContainerBySelectTaskList } from "./viewList";
 
-export const Asside = memo(() => {
+export const Aside = memo(() => {
   const [ isCreateTaskList, setIsCreateTaskList ] = useState(false);
 
   const listOfTaskList = useAppSelector(selectListOfTaskList);

@@ -5,17 +5,19 @@ import { TaskItem } from "./taskItem";
 import css from './styles.module.scss';
 import {AiOutlinePlus} from 'react-icons/ai'
 import { CreateTask } from "../createTask";
+import { TaskDTO } from "../../../../../types/serverInterface/task/taskDTO";
 
 export type ListOfTaskPropsType = {
   selectedTaskListId: number;
+  listOfTask: TaskDTO[];
 }
 
 export const ListOfTask = memo<ListOfTaskPropsType>(({
   selectedTaskListId,
+  listOfTask,
 }) => {
   const [ isOpenCreate, setIsOpenCreate ] = useState(false);
 
-  const listOfTask = useAppSelector(selectListOfTaskByTaskListId);
   return(
     <>
       {listOfTask.map(task => 
