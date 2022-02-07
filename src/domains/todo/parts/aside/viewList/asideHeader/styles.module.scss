@@ -1,8 +1,15 @@
 @import '/src/theme.scss'; 
 
+.innerConatiner {
+  display: flex;
+  align-items: center;
+}
+
 .asideBar_itemIcon {
+  padding-left: 5px;
   cursor: pointer;
   display: inline-block;
   margin-right: 10px;
   color: $iconColor;
+  height: 16px;
 }

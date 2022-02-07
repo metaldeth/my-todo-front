@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { TaskListDTO } from "../../../../types/serverInterface/task/taskListDTO";
+import { logOut } from "../../../auth/state/action";
 import { createTaskList, editTaskList, fetchListOfTaskList, removeTaskList } from "./thunk";
 
 export interface TaskListState {
@@ -47,6 +48,11 @@ export const taskListSlice = createSlice({
 
       const indexOfDelete = state.list.findIndex(id => id === taskListId);
       state.list.splice(indexOfDelete, 1);
+    })
+
+    builder.addCase(logOut, (state) => {
+      state.list = [];
+      state.map = {};
     })
   }
 })

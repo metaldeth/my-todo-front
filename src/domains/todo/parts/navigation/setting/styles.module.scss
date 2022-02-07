@@ -1,6 +1,6 @@
 @import '/src/theme.scss'; 
 
-.settingTask_modal {
+.setting_modal {
   position: fixed;
   z-index: 999999;
   width: 100%;
@@ -8,23 +8,17 @@
   background-color: rgba(0, 0, 0, 0);
 }
 
-.settingTask_box {
-  position: fixed;
-  width: 200px;
-  height: 300px;
-  padding: 10px;
-  margin: 100px auto;
+.setting_box {
+  width: 250px;
+  padding: 20px;
   border: 1px solid $borderColor;
   border-radius: 10px;
   background-color: white;
+  font-size: small;
 }
 
-.settingTask_boxPosition {
-  left: 1200px;
-  top: 15px;
-}
-
-.settingTask_item {
+.setting_item {
+  margin-top: 2px;
   padding-left: 10px;
   cursor: pointer;
   display: flex;
@@ -32,8 +26,13 @@
   justify-content: space-between;
   background-color: $notSelectColor;
   border-radius: 3px;
+  align-items: center;
   transition: background-color 0.25s;
   &:hover{
     background-color: $selectColor;
   }
+}
+
+.setting_boxPosition {
+  margin: 200px auto;
 }

@@ -9,18 +9,30 @@
 }
 
 .settingTaskList_box {
-  position: fixed;
   width: 250px;
-  height: 300px;
-  padding: 10px;
-  margin: 100px auto;
+  padding: 20px;
   border: 1px solid $borderColor;
   border-radius: 10px;
   background-color: white;
   font-size: small;
 }
 
+.settingTaskList_item {
+  margin-top: 2px;
+  padding-left: 10px;
+  cursor: pointer;
+  display: flex;
+  height: 30px;
+  justify-content: space-between;
+  background-color: $notSelectColor;
+  border-radius: 3px;
+  align-items: center;
+  transition: background-color 0.25s;
+  &:hover{
+    background-color: $selectColor;
+  }
+}
+
 .asideSettingTaskList_boxPosition {
-  left: 148px;
-  top: 54px;
+  margin: 200px auto;
 }

@@ -8,3 +8,7 @@ export const selectListOfTaskList = (state: RootState) => {
   const { map, list } = state.taskList;
   return list.map(id => map[id]);
 }
+
+export const selectTaskListId = (state: RootState) => {
+  return state.task.taskListId;
+}

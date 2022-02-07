@@ -28,6 +28,7 @@ export const CreateTask = memo<CreateTaskPropsType>(({
     validationSchema: createTaskValidationScheme,
     initialValues,
     onSubmit: (values, formikHelpers) => {
+      console.log('values, ', values);
       return dispatch(createTask({data: values, taskListId: selectedTaskListId }))
         .then(() => onCloseCreate()) 
         .catch(() => formikHelpers.setSubmitting(false))
@@ -43,13 +44,15 @@ export const CreateTask = memo<CreateTaskPropsType>(({
           placeholder='Задача'
           onNativeChange={formik.handleChange}
           value={formik.values.caption}
+          classNameInput={css.createTask_input}
         />
         <TextField
           isDisabled={false}
           name='description'
           placeholder='Описание'
           onNativeChange={formik.handleChange}
-          value={formik.values.description}
+          value={formik.values.description }
+          isShowOnlyPlaceholder={formik.values.description === ' '}
         />
       </div>
       <div>

@@ -25,7 +25,9 @@ export type TextFieldProps<T extends InputTypeConst> = {
   classNameLabel?: string;
   classNameInput?: string;
   onChange?: MapOfInputOnChange[T];
-  onNativeChange?: React.ChangeEventHandler<HTMLInputElement>
+  onNativeChange?: React.ChangeEventHandler<HTMLInputElement>;
+  isPassword?: boolean;
+  isShowOnlyPlaceholder?: boolean;
 }
 
 export const TextField = <T extends InputTypeConst>(props: TextFieldProps<T>) => {
@@ -40,7 +42,9 @@ export const TextField = <T extends InputTypeConst>(props: TextFieldProps<T>) =>
     classNameLabel,
     classNameInput,
     onChange,
-    onNativeChange
+    onNativeChange,
+    isPassword,
+    isShowOnlyPlaceholder,
   } = props;
 
   // const handler = useMemo((): ChangeEventHandler<HTMLInputElement> => {
@@ -60,8 +64,9 @@ export const TextField = <T extends InputTypeConst>(props: TextFieldProps<T>) =>
         className={classNames(css.textField_label, classNameLabel)}
       >{label || null}</label>
       <input
+        type={isPassword ? 'password' : 'text'}
         name={name}
-        value={String(value)}
+        value={isShowOnlyPlaceholder ? '' : String(value)}
         className={classNames(css.textField_input, classNameInput)}
         placeholder={placeholder || ''}
         disabled={isDisabled}

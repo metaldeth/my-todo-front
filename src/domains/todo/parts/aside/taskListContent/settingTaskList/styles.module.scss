@@ -1,11 +1,28 @@
 @import '/src/theme.scss'; 
 
+.settingTaskList_modal {
+  position: fixed;
+  z-index: 999999;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0);
+}
+
+.settingTaskList_box {
+  width: 250px;
+  padding: 20px;
+  border: 1px solid $borderColor;
+  border-radius: 10px;
+  background-color: white;
+  font-size: small;
+}
+
 .settingTaskList_boxPosition {
-  left: 1200px;
-  top: 15px;
+  margin: 200px auto;
 }
 
 .settingTaskList_item {
+  margin-top: 2px;
   padding-left: 10px;
   cursor: pointer;
   display: flex;
@@ -13,16 +30,9 @@
   justify-content: space-between;
   background-color: $notSelectColor;
   border-radius: 3px;
+  align-items: center;
   transition: background-color 0.25s;
   &:hover{
     background-color: $selectColor;
   }
-}
-
-.settingTaskList_modal {
-  position: fixed;
-  z-index: 999999;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0);
 }

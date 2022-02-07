@@ -5,9 +5,9 @@
   width: 240px;
   height: 100%;
   position: fixed;
-  &:hover {
-    overflow-y: scroll;
-	}
+  border-right: 1px solid $borderColor;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .assideBas_headLabel {
@@ -15,5 +15,6 @@
   font-weight: 700;
 }
 
-
-
+.assideBar_createIcsscsscon {
+  float: right;
+}

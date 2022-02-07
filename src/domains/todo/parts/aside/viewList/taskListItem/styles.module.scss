@@ -4,7 +4,10 @@
   cursor: pointer;
   display: flex;
   height: 30px;
+  padding-left: 5px;
+  margin-bottom: 2px;
   justify-content: space-between;
+  align-items: center;
   background-color: $notSelectColor;
   border-radius: 3px;
   transition: background-color 0.25s;

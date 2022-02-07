@@ -1,10 +1,15 @@
 import { FC } from "react";
+import classNames from "classnames";
 import css from './styles.module.scss';
 
-export const ContentContainer: FC<{}> = (props) => {
+interface ContentContainer {
+  className?: string;
+}
+
+export const ContentContainer: FC<ContentContainer> = ({ className, children }) => {
   return(
-    <div className={css.contentContainer}>
-      {props.children}
+    <div className={classNames(css.contentContainer, className)}>
+      {children}
     </div>
   )
 }

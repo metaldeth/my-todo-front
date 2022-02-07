@@ -1,7 +1,7 @@
 import { memo, useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../../../app/hooks";
 import { Loader } from "../../../../components/loader";
-import { fetchListOfTaskByTaskListId, selectListOfTaskByTaskListId } from "../../state/task";
+import { fetchListOfTaskByTaskListId, selectListOfUncompletedTask } from "../../state/task";
 import { ListOfCompletedTaskContainer } from "./listOfTask/listOfCompleteTask";
 import { ListOfTask } from "./listOfTask";
 
@@ -24,7 +24,7 @@ export const TaskContainer = memo<TaskContainerPropsType>(({
       .then(() => setIsLoaded(true))
   }, [dispatch, selectedTaskListId]);
 
-  const listOfTask = useAppSelector(selectListOfTaskByTaskListId)
+  const listOfTask = useAppSelector(selectListOfUncompletedTask)
 
   if(!isLoaded) return <Loader/>
 

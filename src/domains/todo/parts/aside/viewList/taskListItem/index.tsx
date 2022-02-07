@@ -11,17 +11,17 @@ import { AsideSettingTaskList } from "../asideSettingTaskList";
 export type TaskListItemPropsType = {
   taskList: TaskListDTO;
   isSelect: boolean;
-  onSelectTaskListId: (taskListId:  number | null) => void;
+  onSelectTaskList: (taskListId:  number | null) => void;
 }
 
 export const TaskListItem = memo<TaskListItemPropsType>(({ 
   taskList,
   isSelect,
-  onSelectTaskListId,
+  onSelectTaskList,
 }) => {
   const [ isAsideSettingTaskList, setIsAsideSettingTaskList ] = useState(false);
 
-  const handleChange = () => onSelectTaskListId(taskList.id);
+  const handleChange = () => onSelectTaskList(taskList.id);
 
   return(
     <div 
@@ -49,8 +49,8 @@ export const TaskListItem = memo<TaskListItemPropsType>(({
       >
         <AsideSettingTaskList
           onClose={() => setIsAsideSettingTaskList(false)}
-          onSelectTaskListId={onSelectTaskListId}
-          selectedTaskListId={taskList.id}
+          onSelectTaskList={onSelectTaskList}
+          taskList={taskList}
         />
       </Modal>
     </div>

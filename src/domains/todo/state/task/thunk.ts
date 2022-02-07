@@ -38,18 +38,10 @@ export const editTask = createAsyncThunk<
   return { data: task, taskListId }
 })
 
-export const removeOneTask = createAsyncThunk<
-  { taskListId: number, taskId: number },
-  { taskListId: number, taskId: number }
->('task/removeOne', async ({ taskListId, taskId }) => {
-  await api.task.removeOne(taskListId, taskId)
-  return { taskListId, taskId }
-})
-
 export const removeTask = createAsyncThunk<
   { taskListId: number, taskId: number },
   { taskListId: number, taskId: number }
->('taskList/remove', async ({ taskListId, taskId }) => {
+>('task/remove', async ({ taskListId, taskId }) => {
   await api.task.remove(taskId)
   return { taskListId, taskId }
 })

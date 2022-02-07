@@ -6,17 +6,22 @@ export type AsideHeaderPropsType = {
   caption: string;
   isOpenTaskList: boolean;
   onOpenTaskList: VoidFunction;
+  renderHeaderSlot?: () => JSX.Element;
 } 
 
 export const AsideHeader = memo<AsideHeaderPropsType>(({ 
   caption, 
   isOpenTaskList, 
-  onOpenTaskList 
+  onOpenTaskList,
+  renderHeaderSlot
 }) => (
-  <div onClick={onOpenTaskList}>
-    <div className={css.asideBar_itemIcon}>
-      {isOpenTaskList ? <AiOutlineDown/> : <AiOutlineRight/>}
+  <>
+    <div className={css.innerConatiner} onClick={onOpenTaskList}>
+      <div className={css.asideBar_itemIcon}>
+        {isOpenTaskList ? <AiOutlineDown/> : <AiOutlineRight/>}
+      </div>
+      <span className={css.assideBas_headLabel}>{caption}</span>
     </div>
-    <span className={css.assideBas_headLabel}>{caption}</span>
-  </div>
+    {!!renderHeaderSlot && renderHeaderSlot()}
+  </>
 ))

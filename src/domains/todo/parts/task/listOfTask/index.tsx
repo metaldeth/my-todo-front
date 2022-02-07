@@ -1,6 +1,6 @@
 import { memo, useState } from "react";
 import { useAppSelector } from "../../../../../app/hooks";
-import { selectListOfTaskByTaskListId } from "../../../state/task";
+import { selectListOfUncompletedTask } from "../../../state/task";
 import { TaskItem } from "./taskItem";
 import css from './styles.module.scss';
 import {AiOutlinePlus} from 'react-icons/ai'

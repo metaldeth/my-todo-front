@@ -1,6 +1,6 @@
 import { memo } from "react";
 import { useAppSelector } from "../../../../../../app/hooks";
-import { selectListOfCompletedTaskByTaskListId } from "../../../../state/task";
+import { selectListOfCompletedTask } from "../../../../state/task";
 import { TaskItem } from "../taskItem";
 
 export type ListOfCompletedTaskPropsType = {
@@ -10,7 +10,7 @@ export type ListOfCompletedTaskPropsType = {
 export const ListOfCompletedTask = memo<ListOfCompletedTaskPropsType>(({
   selectedTaskListId,
 }) => {
-  const listOfTask = useAppSelector(selectListOfCompletedTaskByTaskListId);
+  const listOfTask = useAppSelector(selectListOfCompletedTask);
 
   return(
     <>

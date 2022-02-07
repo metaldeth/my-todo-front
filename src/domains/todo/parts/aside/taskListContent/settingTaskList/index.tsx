@@ -65,11 +65,6 @@ export const SettingTaskList: FC<SettingTaskListPropsType> = ({
             }
           </div>
         </div>
-        <div className={css.settingTaskList_item} onClick={onClose}>
-          <div>
-            Отмена
-          </div>
-        </div>
       </div>
     </div>
   )

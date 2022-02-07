@@ -1,5 +1,4 @@
 import { memo } from "react";
-import { AiOutlineUsergroupAdd } from "react-icons/ai";
 import { BsGrid3X2Gap } from "react-icons/bs";
 import { IconButton } from "../../../../../../components/appBar";
 import { TaskListDTO } from "../../../../../../types/serverInterface/task/taskListDTO";
@@ -36,12 +35,6 @@ export const TaskListHeader = memo<TaskListHeaderPropsType>(({
           >{taskList.caption}</div>
         }
         <div className={css.taskListCard_buttonGroup}>
-          <IconButton
-            onClick={() => {}}
-            label='Пригласить'
-          >
-            <AiOutlineUsergroupAdd/>
-          </IconButton>
           <IconButton
             onClick={() => onOpenSetting()}
           >

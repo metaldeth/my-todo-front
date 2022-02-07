@@ -9,6 +9,7 @@ import { Button } from "../../../../components/button";
 import { TextField } from "../../../../components/textField";
 import { SignUpUserDTO } from "../../../../types/serverInterface";
 import { signUp } from "../../state";
+import commonStyle from '../../auth.module.sass';
 
 const initialValues: SignUpUserDTO = {
   name: '',
@@ -19,10 +20,9 @@ export const SignUp = memo(() => {
   const dispatch = useAppDispatch()
 
   const formik = useFormik({
-    // validationSchema: signUpvalidationSchema,
+    validationSchema: signUpvalidationSchema,
     initialValues,
     onSubmit: (values, formikHelpers) => {
-      console.log('ttt');
       return dispatch(signUp(values)).catch(() => {
         formikHelpers.setSubmitting(false);
       })
@@ -31,31 +31,34 @@ export const SignUp = memo(() => {
 
 
   return (
-    <ContentContainer>
-      <Card>
-        <h1>
-          Log Up
+    <ContentContainer className={commonStyle.formContainer}>
+      <Card className={commonStyle.formCard}>
+        <h1 className={commonStyle.formHeader}>
+          Sign up
         </h1>
         <form onSubmit={formik.handleSubmit}>
           <TextField
             name='name'
             isDisabled={false}
-            label="name-label"
-            placeholder="name-placeholder"
+            label="name"
+            placeholder="name"
             type="text"
+            classNameInput={commonStyle.formInput}
             onNativeChange={formik.handleChange}
             value={formik.values.name}
           />
           <TextField
             name='password'
             isDisabled={false}
-            label="name-label"
-            placeholder="name-placeholder"
+            label="password"
+            placeholder="password"
             type="text"
+            isPassword={true}
+            classNameInput={commonStyle.formInput}
             onNativeChange={formik.handleChange}
             value={formik.values.password}
           />
-          <div className='button'>
+          <div className={commonStyle.formButtonGroup}>
             <Button
               label="signUp"
               onClick={() => formik.isSubmitting}

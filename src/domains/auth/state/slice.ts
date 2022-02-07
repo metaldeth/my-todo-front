@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { api } from "../../../app/api";
 import { MainUserDataDTO } from "../../../types/serverInterface/user/userDTO";
+import { logOut } from "./action";
 import { fetchUserData, signIn } from "./thunk";
 
 export interface AuthState {
@@ -21,20 +22,18 @@ const getUserMainDataReducer = (state: AuthState, action: PayloadAction<MainUser
 export const authSlice = createSlice({
   name: 'auth',
   initialState,
-  reducers: {
-    logout: (state) => {
-      state.user = null;
-      state.isAuth = false;
-      api.clearTokens();
-    }
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder.addCase(fetchUserData.fulfilled, getUserMainDataReducer);
     builder.addCase(signIn.fulfilled, getUserMainDataReducer);
 
+    builder.addCase(logOut, (state) => {
+      state.user = null;
+      state.isAuth = false;
+      api.clearTokens();
+    })
+
   }
 })
-
-export const { logout } = authSlice.actions;
 
 export const authReducer = authSlice.reducer;

@@ -1,35 +1,49 @@
-import { memo } from "react";
-import { useParams } from "react-router";
+import { memo, useState } from "react";
+import css from './styles.module.scss';
 import { TaskListDTO } from "../../../../../types/serverInterface/task/taskListDTO";
-import { RouteTaskListParam } from "../../../../../types/routeTypes/types";
-import { ViewList } from "./viewList";
+import { AsideHeader } from "./asideHeader";
+import { TaskListItem } from "./taskListItem";
+import { useNavigate, useParams } from "react-router";
 
-export type ViewListContainerPropsType = {
-  list: TaskListDTO[];
+export type ListOfTaskListPropsType = {
   caption: string;
+  list: TaskListDTO[];
+  selectedTaskListId?: number | null;
+  renderHeaderSlot?: () => JSX.Element;
 }
 
-export const ViewListContainer = memo<ViewListContainerPropsType>(({ 
+export const ViewList = memo<ListOfTaskListPropsType>(({ 
   caption,
-  list
-}) => 
-  <ViewList
-    caption={caption}
-    list={list}
-  />
-)
-
-export const ViewListContainerBySelectTaskList = memo<ViewListContainerPropsType>(({ 
-  caption,
-  list
+  list,
+  selectedTaskListId,
+  renderHeaderSlot
 }) => {
-  const { taskListId } = useParams<RouteTaskListParam>();
-  const convertedId = Number(taskListId);
+  const navigate = useNavigate()
+
+  const [ isOpenTaskList, setIsOpenTaskList ] = useState(true);
+
+  const onSelectedTaskList = (taskListId: number | null) => {
+    navigate(`/taskList/${taskListId}`);
+  }
+  
   return(
-    <ViewList
-      caption={caption}
-      list={list}
-      selectedTaskListId={convertedId}
-    />
+    <div className={css.assideBar_itemGroup}>
+      
+    <div className={css.assideBar_groupHead}>
+      <AsideHeader
+        caption={caption}
+        isOpenTaskList={isOpenTaskList}
+        onOpenTaskList={() => setIsOpenTaskList(!isOpenTaskList)}
+        renderHeaderSlot={renderHeaderSlot}
+      />
+    </div>
+      {isOpenTaskList && list.map(taskList => (
+        <TaskListItem
+          taskList={taskList}
+          onSelectTaskList={onSelectedTaskList}
+          isSelect={selectedTaskListId === taskList.id}
+        />
+      ))}
+    </div>
   )
 })

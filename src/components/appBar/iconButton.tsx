@@ -5,12 +5,13 @@ import classNames from 'classnames';
 export type IconButtonPropsType = {
   onClick: VoidFunction;
   label?: string;
+  className?: string;
 }
 
-export const IconButton: FC<IconButtonPropsType> = ({ onClick, children, label }) => {
+export const IconButton: FC<IconButtonPropsType> = ({ className, label, onClick, children }) => {
   return (
     <button 
-      className={classNames(css.iconButton_container, css.iconButtonColor)}
+      className={classNames(css.iconButton_container, css.iconButtonColor, className)}
       onClick={onClick}
     >
       {children}

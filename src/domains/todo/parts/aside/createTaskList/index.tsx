@@ -30,13 +30,14 @@ export const CreateTaskList = memo<CreateTaskListPropsType>(({ setIsCreateTaskLi
 
   return(
     <div className={css.createTaskList_box}>
-      <h1>Создать список задач</h1>
+      <h2 className={css.createTaskList_header}>Создать список задач</h2>
       <form onSubmit={formik.handleSubmit} className={css.createTaskList_form}>
         <div className={css.editTask_textFieldBox}>
           <TextField
             isDisabled={false}
             name='caption'
             placeholder='Задача'
+            classNameInput={css.createTaskList_input}
             onNativeChange={formik.handleChange}
             value={formik.values.caption}
           />

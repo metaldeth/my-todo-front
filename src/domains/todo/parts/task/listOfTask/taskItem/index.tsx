@@ -1,15 +1,12 @@
 import { memo, useState } from "react";
 import { TaskDTO } from "../../../../../../types/serverInterface/task/taskDTO";
-import { BsChatText } from "react-icons/bs";
-import { AiOutlineEdit, AiOutlineEllipsis } from "react-icons/ai";
-import css from './styles.module.scss';
+import { AiOutlineDelete, AiOutlineEdit, AiOutlineEllipsis } from "react-icons/ai";
 import { IconButton } from "../../../../../../components/appBar";
 import { EditTask } from "../../editTask";
 import { CompletedTask } from "./completedTask";
-import { Modal } from "../../../../../../components/modal";
-import { SettingTask } from "../../settingTask";
-import { TaskModal } from "../../taskModal";
-import { Route, Routes, useNavigate } from "react-router";
+import css from './styles.module.scss';
+import { removeTask } from "../../../../state/task";
+import { useAppDispatch } from "../../../../../../app/hooks";
 
 export type TaskItemPropsType = {
   task: TaskDTO,
@@ -20,13 +17,15 @@ export const TaskItem = memo<TaskItemPropsType>(({
   task,
   selectedTaskListId,
  }) => {
+  const dispatch = useAppDispatch();
+
   const [ isHoverItem, setIsHoverItem ] = useState(false);
-  const [ isOpenSetting, setIsOpenSetting ] = useState(false);
   const [ isEdit, setIsEdit ] = useState(false);
 
-  const navigate = useNavigate();
-
-  const onOpenTaskModal = () => navigate(`/taskList/${selectedTaskListId}/task/${task.id}`);
+  const remove = () => {
+    if(!selectedTaskListId) return;
+    dispatch(removeTask({taskListId: selectedTaskListId, taskId: task.id}))
+  };
 
   return(
     <div 
@@ -59,40 +58,15 @@ export const TaskItem = memo<TaskItemPropsType>(({
                   <AiOutlineEdit/>
                 </IconButton>
                 <IconButton
-                  onClick={() => onOpenTaskModal()}
+                  onClick={remove}
                 >
-                  <BsChatText/>
-                </IconButton>
-                <IconButton
-                  onClick={() => setIsOpenSetting(!isOpenSetting)}
-                >
-                  <AiOutlineEllipsis/>
+                  <AiOutlineDelete/>
                 </IconButton>
               </>
             }
           </div>
         </>
       }
-      
-      <Modal
-        isOpen={isOpenSetting}
-      >
-        <SettingTask
-          selectedTaskListId={selectedTaskListId}
-          onCloseSetting={() => setIsOpenSetting(false)}
-          taskId={task.id}
-        />
-      </Modal>
-      
-      <Routes>
-        <Route path='/taskList/:taskListId/task/:taskId' element={
-          <Modal
-            isOpen={true}
-          >
-            <TaskModal/>
-          </Modal>
-        }/>
-      </Routes>
     </div>
   )
 })

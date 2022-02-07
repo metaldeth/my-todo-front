@@ -2,12 +2,12 @@ import { memo, useState } from "react";
 import { useParams } from "react-router";
 import { useAppSelector } from "../../../../../app/hooks";
 import { Modal } from "../../../../../components/modal";
-import { selectTaskListById } from "../../../state/taskList";
+import { selectTaskListById, selectTaskListId } from "../../../state/taskList";
 import { TaskContainer } from "../../task";
 import { SettingTaskList } from "./settingTaskList";
 import { RouteTaskListParam } from "../../../../../types/routeTypes/types";
-import css from './styles.module.scss'
 import { TaskListHeader } from "./taskListHeader";
+import css from './styles.module.scss'
 
 export const TaskListContent = memo(() => {
   const { taskListId } = useParams<RouteTaskListParam>();
@@ -24,6 +24,7 @@ export const TaskListContent = memo(() => {
     setIsOpenSetting(false);
   }
 
+  if(!taskList) return <h1>not found 404</h1>
 
   return(
     <div className={css.taskListCard}>

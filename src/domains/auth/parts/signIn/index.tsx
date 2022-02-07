@@ -9,6 +9,7 @@ import { ContentContainer } from "../../../../components/contentContainer";
 import { Card } from "../../../../components/card";
 import { Button } from "../../../../components/button";
 import { TextField } from "../../../../components/textField";
+import commonStyle from '../../auth.module.sass';
 
 const initialValues: SignInUserDTO = {
   name: '',
@@ -30,31 +31,34 @@ export const SignIn = memo(() => {
 
 
   return (
-    <ContentContainer>
-      <Card>
-        <h1>
+    <ContentContainer className={commonStyle.formContainer}>
+      <Card className={commonStyle.formCard}>
+        <h1 className={commonStyle.formHeader}>
           Log in
         </h1>
         <form onSubmit={formik.handleSubmit}>
           <TextField
             name='name'
             isDisabled={false}
-            label="name-label"
-            placeholder="name-placeholder"
+            label="name"
+            placeholder="name"
             type="text"
+            classNameInput={commonStyle.formInput}
             onNativeChange={formik.handleChange}
             value={formik.values.name}
           />
           <TextField
             name='password'
             isDisabled={false}
-            label="name-label"
-            placeholder="name-placeholder"
+            label="password"
+            placeholder="password"
             type="text"
+            isPassword={true}
+            classNameInput={commonStyle.formInput}
             onNativeChange={formik.handleChange}
             value={formik.values.password}
           />
-          <div className='button'>
+          <div className={commonStyle.formButtonGroup}>
             <Button
               label="signIn"
               onClick={() => formik.isSubmitting}
