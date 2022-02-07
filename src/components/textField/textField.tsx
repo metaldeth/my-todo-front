@@ -1,62 +1,33 @@
-import { FC, useCallback, useMemo, ChangeEventHandler } from "react";
 import classNames from 'classnames';
-import { InputType, InputTypeConst } from "./const";
+import { memo } from 'react';
 import css from './styles.module.scss';
 
-
-type MapOfValue = {
-  text: string;
-  number: number;
-}
-
-type MapOfInputOnChange = {
-  text: (val: string) => void;
-  number: (val: number) => void;
-}
-
-export type TextFieldProps<T extends InputTypeConst> = {
+export type TextFieldProps = {
   name?: string;
-  value: MapOfValue[T];
-  type?: T;
+  value: string;
   label?: string;
   placeholder?: string;
   isDisabled: boolean;
   classNameWrap?: string;
   classNameLabel?: string;
   classNameInput?: string;
-  onChange?: MapOfInputOnChange[T];
   onNativeChange?: React.ChangeEventHandler<HTMLInputElement>;
   isPassword?: boolean;
-  isShowOnlyPlaceholder?: boolean;
 }
 
-export const TextField = <T extends InputTypeConst>(props: TextFieldProps<T>) => {
+export const TextField = memo((props: TextFieldProps) => {
   const {
     name,
     value,
     isDisabled,
     label,
     placeholder,
-    type,
     classNameWrap,
     classNameLabel,
     classNameInput,
-    onChange,
     onNativeChange,
     isPassword,
-    isShowOnlyPlaceholder,
   } = props;
-
-  // const handler = useMemo((): ChangeEventHandler<HTMLInputElement> => {
-  //   const untypedOnChange: Function = onChange;
-  //   if (type === 'text') return (e) => untypedOnChange(e.target.value);
-  //   return (e) => {
-  //     const valueAsNumber = Number(e.target.value);
-  //     if (Number.isNaN(valueAsNumber)) return;
-  //     untypedOnChange(valueAsNumber)
-  //   }
-  // }, [type, onChange])
-
 
   return(
     <div className={classNames(css.textField, classNameWrap)}>
@@ -66,12 +37,12 @@ export const TextField = <T extends InputTypeConst>(props: TextFieldProps<T>) =>
       <input
         type={isPassword ? 'password' : 'text'}
         name={name}
-        value={isShowOnlyPlaceholder ? '' : String(value)}
+        value={String(value)}
         className={classNames(css.textField_input, classNameInput)}
-        placeholder={placeholder || ''}
+        placeholder={placeholder}
         disabled={isDisabled}
         onChange={onNativeChange}
       />
     </div>
   )
-} 
+})

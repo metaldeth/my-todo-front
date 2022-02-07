@@ -10,7 +10,7 @@ import { createTaskValidationScheme } from "./createTaskValidationScheme";
 
 const initialValues: CreateTaskDTO = {
   caption: '',
-  description: ' ',
+  description: '',
 }
 
 export type CreateTaskPropsType = {
@@ -52,7 +52,6 @@ export const CreateTask = memo<CreateTaskPropsType>(({
           placeholder='Описание'
           onNativeChange={formik.handleChange}
           value={formik.values.description }
-          isShowOnlyPlaceholder={formik.values.description === ' '}
         />
       </div>
       <div>

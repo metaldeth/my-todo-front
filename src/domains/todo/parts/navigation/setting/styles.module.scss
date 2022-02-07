@@ -10,7 +10,7 @@
 
 .setting_box {
   width: 250px;
-  padding: 20px;
+  padding: 10px;
   border: 1px solid $borderColor;
   border-radius: 10px;
   background-color: white;
@@ -23,7 +23,7 @@
   cursor: pointer;
   display: flex;
   height: 30px;
-  justify-content: space-between;
+  justify-content: left;
   background-color: $notSelectColor;
   border-radius: 3px;
   align-items: center;
@@ -35,4 +35,9 @@
 
 .setting_boxPosition {
   margin: 200px auto;
+}
+
+.setting_caption {
+  margin-left: 5px;
+  padding-bottom: 2px;
 }

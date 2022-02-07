@@ -23,18 +23,20 @@ export const ToDo = memo(() => {
   if(!isLoaded) return <Loader/>;
 
   return(
-    <>
+    <div className={css.page}>
       <Navigation
         onOpenAside={() => setIsOpenAside(!isOpenAside)}
       />
-      {isOpenAside &&
-        <Aside/>
-      }
-      <div className={classNames(isOpenAside && css.contentBox)}>
-        <Routes>
-          <Route path='/taskList/:taskListId/*' element={<TaskListContent/>}/>
-        </Routes>
+      <div className={css.main}>
+        {isOpenAside &&
+          <Aside/>
+        }
+        <div className={css.contentBox}>
+          <Routes>
+            <Route path='/taskList/:taskListId/*' element={<TaskListContent/>}/>
+          </Routes>
+        </div>
       </div>
-    </>
+    </div>
   )
 })

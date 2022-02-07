@@ -42,7 +42,6 @@ export const SignUp = memo(() => {
             isDisabled={false}
             label="name"
             placeholder="name"
-            type="text"
             classNameInput={commonStyle.formInput}
             onNativeChange={formik.handleChange}
             value={formik.values.name}
@@ -52,7 +51,6 @@ export const SignUp = memo(() => {
             isDisabled={false}
             label="password"
             placeholder="password"
-            type="text"
             isPassword={true}
             classNameInput={commonStyle.formInput}
             onNativeChange={formik.handleChange}

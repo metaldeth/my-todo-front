@@ -45,22 +45,18 @@ export const AsideSettingTaskList = memo<AsideSettingTaskListPropsType>(({
           className={css.settingTaskList_item} 
           onClick={onClickFavorite}
         >
-          <div>
-            {!taskList.isFavorite && 
-              <><AiFillStar/> В избранное</>
-            }
-            {taskList.isFavorite && 
-              <><AiOutlineStar/> Убрать из избранное</>
-            }
-          </div>
+          {!taskList.isFavorite && 
+            <><AiFillStar/> <span className={css.asideSettingTaskList_caption}>В избранное</span></>
+          }
+          {taskList.isFavorite && 
+            <><AiOutlineStar/> <span className={css.asideSettingTaskList_caption}>Убрать из избранное</span></>
+          }
         </div>
         <div 
           className={css.settingTaskList_item} 
           onClick={remove}
         >
-          <div>
-            <AiOutlineDelete/> Удалить список
-          </div>
+          <AiOutlineDelete/> <span className={css.asideSettingTaskList_caption}>Удалить список</span>
         </div>
       </div>
     </div>

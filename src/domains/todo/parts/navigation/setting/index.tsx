@@ -26,9 +26,7 @@ export const Setting = memo<SettingPropsType>(({
           className={css.setting_item} 
           onClick={onLogOut}
         >
-          <div>
-            <AiOutlineDelete/> Log out
-          </div>
+          <AiOutlineDelete/> <span className={css.setting_caption}>Выход</span>
         </div>
       </div>
     </div>

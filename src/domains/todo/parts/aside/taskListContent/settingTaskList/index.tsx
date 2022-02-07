@@ -42,28 +42,26 @@ export const SettingTaskList: FC<SettingTaskListPropsType> = ({
           className={css.settingTaskList_item} 
           onClick={remove}
         >
-          <div>
-            <AiOutlineDelete/> Удалить список
-          </div>
+          <AiOutlineDelete/>
+          <span className={css.settingTaskList_caption}>Удалить список</span> 
         </div>
         <div 
           className={css.settingTaskList_item} 
           onClick={() => onOpenEdit()}
         >
-          <div>
-            <AiOutlineEdit/> Редактировать список
-          </div>
+          <AiOutlineEdit/> 
+          <span className={css.settingTaskList_caption}>Редактировать список</span>
         </div>
         <div 
           className={css.settingTaskList_item} 
           onClick={onToggleCompleteTaskShow}
         >
-          <div>
-            {isShowCompletedTask 
-              ? <><BsCircle/> Скрыть выполненые задачи</>
-              : <><BsCheckCircle/> Показать выполненые задачи</>
-            }
-          </div>
+          {isShowCompletedTask &&
+            <><BsCircle/> <span className={css.settingTaskList_caption}>Скрыть выполненые задачи</span></>
+          }
+          {!isShowCompletedTask &&
+            <><BsCheckCircle/> <span className={css.settingTaskList_caption}>Показать выполненые задачи</span></>
+          }
         </div>
       </div>
     </div>

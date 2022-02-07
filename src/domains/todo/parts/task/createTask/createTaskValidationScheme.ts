@@ -1,9 +1,9 @@
 import * as Yup from 'yup'
 import { CreateTaskDTO } from '../../../../../types/serverInterface/task/taskDTO'
 
-export const createTaskValidationScheme: Yup.SchemaOf<CreateTaskDTO> = Yup.object().shape({
+type CreateTaskValidateType = Omit<CreateTaskDTO, 'description'>
+
+export const createTaskValidationScheme: Yup.SchemaOf<CreateTaskValidateType> = Yup.object().shape({
   caption: Yup.string()
-    .required('Required'),
-  description: Yup.string()
     .required('Required'),
 })
