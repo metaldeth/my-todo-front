@@ -61,9 +61,12 @@ export const SignIn = memo(() => {
               label="signIn"
               onClick={() => formik.isSubmitting}
             />
-            <Link to='/auth/signUp'>Sign Up</Link>
+            {/* Регистрацию убрал для упрощения моков */}
+            {/* <Link to='/auth/signUp'>Sign Up</Link> */}
           </div>
         </form>
+        <div>Login: admin</div>
+        <div>Password: admin</div>
       </Card>
     </ContentContainer>
   )
